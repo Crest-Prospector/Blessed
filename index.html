@@ -309,6 +309,41 @@ input[type=range]::-webkit-slider-thumb {
 .tip-box .ti { font-size: 16px; flex-shrink: 0; }
 .tip-box p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
 .tip-box strong { color: var(--gold); }
+.portrait-block {
+  background: var(--dark2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.75rem 1.5rem; margin: 1.5rem 0;
+}
+.portrait-eyebrow {
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-dim); font-weight: 500; margin-bottom: .5rem;
+}
+.portrait-title {
+  font-family: 'Playfair Display', serif; font-size: 20px;
+  color: var(--text); margin-bottom: 1.25rem; line-height: 1.35;
+}
+.portrait-para {
+  font-size: 13px; color: var(--text-muted); line-height: 1.75;
+  margin-bottom: .85rem; border-left: 2px solid var(--border);
+  padding-left: .85rem;
+}
+.portrait-para:last-child { margin-bottom: 0; }
+.portrait-para strong { color: var(--text); font-weight: 500; }
+.portrait-para .highlight { color: var(--gold-light); font-weight: 500; }
+.tier-breakdown {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 1rem 0;
+}
+.tier-card {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: .75rem .85rem;
+}
+.tier-card .tc-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .3rem; }
+.tier-card .tc-bar { height: 4px; background: var(--dark4); border-radius: 2px; margin: .3rem 0; overflow: hidden; }
+.tier-card .tc-fill { height: 100%; border-radius: 2px; }
+.tc-fill-1 { background: var(--gold); }
+.tc-fill-2 { background: #4A9EE8; }
+.tc-fill-3 { background: #5BC4A0; }
+.tc-fill-4 { background: #8A6FD4; }
+.tier-card .tc-score { font-size: 15px; font-weight: 500; color: var(--text); }
 .blessed-block {
   background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.02) 100%);
   border: 1px solid rgba(201,168,76,0.3);
@@ -415,7 +450,7 @@ const STATES=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','C
 
 const STATE_RANK={Maryland:1,Wyoming:0.9,'New Jersey':0.97,Hawaii:0.94,Massachusetts:0.93,Connecticut:0.92,California:0.88,Washington:0.87,Colorado:0.86,Virginia:0.85,'New Hampshire':0.84,Minnesota:0.83,Alaska:0.82,Utah:0.81,Illinois:0.79,'New York':0.78,Wisconsin:0.75,Oregon:0.74,Delaware:0.73,Pennsylvania:0.72,Vermont:0.71,Nevada:0.68,Arizona:0.66,Michigan:0.65,Texas:0.64,Florida:0.62,Georgia:0.6,'North Carolina':0.59,'North Dakota':0.58,'South Dakota':0.57,Indiana:0.56,Iowa:0.55,Nebraska:0.54,Ohio:0.53,Missouri:0.52,Maine:0.51,Idaho:0.49,Tennessee:0.47,Kansas:0.46,Montana:0.44,'South Carolina':0.43,Kentucky:0.41,Oklahoma:0.4,Louisiana:0.38,Alabama:0.36,'West Virginia':0.34,Arkansas:0.33,'New Mexico':0.35,Mississippi:0.3,'Rhode Island':0.7};
 
-// ── SHARED QUESTIONS (30) ──
+// -- SHARED QUESTIONS (30) --
 const SHARED=[
   {id:'gender',cat:'Origins',sec:'Birth & Era',type:'pills',text:'What is your gender?',sub:'This shapes a few questions that follow.',opts:[{v:'male',l:'Male'},{v:'female',l:'Female'},{v:'nonbinary',l:'Non-binary / Other'}]},
   {id:'year',cat:'Origins',sec:'Birth & Era',type:'slider',text:'What year were you born?',sub:'',min:1930,max:2007,step:1,def:1990},
@@ -448,7 +483,7 @@ const SHARED=[
   {id:'sleep',cat:'Health',sec:'Health & Wellbeing',type:'pills',text:'How well do you sleep on average?',sub:'',opts:[{v:'great',l:'Great — 7–9 hours, feel rested'},{v:'ok',l:'OK — usually enough'},{v:'poor',l:'Poor — often tired'},{v:'very_poor',l:'Very poor — chronic issues'}]},
 ];
 
-// ── US-SPECIFIC QUESTIONS (20) ──
+// -- US-SPECIFIC QUESTIONS (20) --
 const US_SPECIFIC=[
   {id:'us_state',cat:'Origins',sec:'US-Specific',type:'dropdown',text:'What US state do you live in?',sub:'',opts:['Select your state...'].concat(STATES)},
   {id:'ethnicity_us',cat:'Origins',sec:'US-Specific',type:'pills',text:'What is your ethnicity?',sub:'US Census categories.',opts:[{v:'white',l:'White / Caucasian'},{v:'hispanic',l:'Hispanic / Latino'},{v:'black',l:'Black / African American'},{v:'asian',l:'Asian / Pacific Islander'},{v:'native',l:'Native American / Alaska Native'},{v:'mixed',l:'Multiracial / Mixed'},{v:'other',l:'Other'}]},
@@ -472,7 +507,7 @@ const US_SPECIFIC=[
   {id:'us_debt',cat:'Wealth',sec:'US-Specific',type:'pills',text:'What is your total debt (excluding mortgage)?',sub:'',opts:[{v:'none',l:'No debt'},{v:'under10k',l:'Under $10,000'},{v:'10_50k',l:'$10,000 – $50,000'},{v:'50_100k',l:'$50,000 – $100,000'},{v:'over100k',l:'Over $100,000'}]},
 ];
 
-// ── WORLD-SPECIFIC QUESTIONS (20) ──
+// -- WORLD-SPECIFIC QUESTIONS (20) --
 const WORLD_SPECIFIC=[
   {id:'w_country_tier',cat:'Origins',sec:'Global Context',type:'pills',text:'Which best describes where you live?',sub:'',opts:[{v:'usa',l:'United States'},{v:'can_aus_nz',l:'Canada / Australia / NZ'},{v:'w_europe',l:'Western Europe'},{v:'scandinavia',l:'Scandinavia'},{v:'uk',l:'United Kingdom'},{v:'japan_korea',l:'Japan / South Korea'},{v:'e_europe',l:'Eastern Europe'},{v:'china',l:'China'},{v:'latin_am',l:'Latin America'},{v:'middle_east',l:'Middle East'},{v:'n_africa',l:'North Africa'},{v:'india',l:'India'},{v:'se_asia',l:'SE Asia'},{v:'sub_saharan',l:'Sub-Saharan Africa'},{v:'other_w',l:'Other'}]},
   {id:'w_conflict_exposure',cat:'Safety',sec:'War & Conflict',type:'pills',text:'Have you ever lived in or near an active war zone or conflict area?',sub:'',opts:[{v:'never',l:'Never — I have always lived in peace'},{v:'briefly',l:'Briefly, but I was not directly affected'},{v:'yes_civilian',l:'Yes — as a civilian near conflict'},{v:'yes_direct',l:'Yes — I was directly in the conflict zone'},{v:'refugee',l:'I was displaced or became a refugee'}]},
@@ -496,7 +531,7 @@ const WORLD_SPECIFIC=[
   {id:'w_tech_access',cat:'Lifestyle',sec:'Global Context',type:'pills',text:'Do you have access to modern technology? (smartphone, computer)',sub:'',opts:[{v:'latest',l:'Yes — latest devices'},{v:'recent',l:'Yes — reasonably recent devices'},{v:'basic',l:'Basic only'},{v:'none',l:'No personal devices'}]},
 ];
 
-// ── HISTORY-SPECIFIC QUESTIONS (20) ──
+// -- HISTORY-SPECIFIC QUESTIONS (20) --
 const HIST_SPECIFIC=[
   {id:'h_born_country',cat:'Origins',sec:'Historical Context',type:'pills',text:'You are alive today — where?',sub:'This determines what you\'ve escaped compared to history.',opts:[{v:'usa',l:'United States'},{v:'w_europe_uk',l:'Western Europe / UK'},{v:'scandinavia',l:'Scandinavia'},{v:'japan_korea',l:'Japan / South Korea'},{v:'other_developed',l:'Other developed democracy'},{v:'developing',l:'Developing country'},{v:'conflict_region',l:'Region affected by conflict'},{v:'extreme_poverty',l:'Region with extreme poverty'}]},
   {id:'h_plague_pandemic',cat:'Safety',sec:'Historical Survival',type:'pills',text:'Were you or close family significantly affected by COVID-19?',sub:'Compared to past plagues — Black Death killed 30–60% of Europe.',opts:[{v:'unaffected',l:'Barely affected — no hospitalization'},{v:'sick',l:'Got sick, recovered fully'},{v:'hospitalized',l:'Hospitalized but survived'},{v:'family_loss',l:'Lost a close family member'},{v:'severe',l:'Severely impacted — health or major loss'}]},
@@ -633,241 +668,437 @@ function goNext() {
 }
 function goBack() { if (cur > 0) { cur--; renderQ(); } }
 
-// ── SCORING ──
+// -- SCORING ENGINE v2 - Properly Weighted Tiers --
+//
+// TIER 1 - Foundational (target ~40% of max score): geography, era, gender, childhood, physical health
+// TIER 2 - Major Life Shapers (target ~35%): income/wealth, education, safety/war, food/water/shelter, freedom, healthcare
+// TIER 3 - Significant Secondary (target ~15%): career, relationships, mental health, technology
+// TIER 4 - Interesting but Minor (target ~10%): physical traits, lifestyle details
+//
+// Each factor: f(label, rawScore, maxScore, tier, oddsText, noteText)
+// Final score = sum(s * TIER_WEIGHT[tier]) / sum(max * TIER_WEIGHT[tier])
+
+const TW = { 1: 4.0, 2: 3.0, 3: 1.5, 4: 0.5 }; // tier multipliers
+
 function scoreAnswers(m, a) {
   let factors = [];
-  function f(label, s, max, odds, note) { factors.push({ label, s, max, odds, note }); }
+  function f(label, s, max, tier, odds, note) {
+    factors.push({ label, s: s * TW[tier], max: max * TW[tier], rawS: s, rawMax: max, tier, odds, note });
+  }
 
   const yr = a.year || 1990;
 
-  // SHARED SCORING
-  // Birth year
-  const yrS = yr >= 2000 ? 10 : yr >= 1985 ? 9 : yr >= 1970 ? 8 : yr >= 1955 ? 6 : yr >= 1940 ? 4 : 2;
-  f('Era of birth', yrS, 10, yr >= 2000 ? 'Top 6% of all humans ever' : yr >= 1970 ? 'Top 10%' : yr >= 1955 ? 'Top 15%' : 'Top 20%',
-    `Born in ${yr} — after antibiotics, vaccines, electricity, and flight`);
+  // ============================================
+  // TIER 1 - FOUNDATIONAL (weight x4)
+  // ============================================
 
-  // Gender
-  const gS = { male: 5, female: 3, nonbinary: 4 };
-  f('Gender', gS[a.gender] || 4, 5, a.gender === 'male' ? '49.2% of population' : '50.8%', 'Historically, male birth granted automatic legal and economic advantage in virtually every society');
+  // ERA OF BIRTH - single most powerful luck factor historically
+  // Each decade post-1950 represents massive gains in medicine, rights, technology
+  let yrS, yrOdds;
+  if (yr >= 2000)      { yrS = 10; yrOdds = 'Top 6% of all ~108B humans ever born'; }
+  else if (yr >= 1990) { yrS = 9.5; yrOdds = 'Top 8% of all humans ever born'; }
+  else if (yr >= 1980) { yrS = 9;   yrOdds = 'Top 10% of all humans ever born'; }
+  else if (yr >= 1970) { yrS = 8;   yrOdds = 'Top 12% of all humans ever born'; }
+  else if (yr >= 1960) { yrS = 7;   yrOdds = 'Top 14% of all humans ever born'; }
+  else if (yr >= 1950) { yrS = 6;   yrOdds = 'Top 16% of all humans ever born'; }
+  else if (yr >= 1940) { yrS = 5;   yrOdds = 'Top 18% — born before the antibiotic era'; }
+  else                 { yrS = 3;   yrOdds = 'Pre-modern era — high childhood mortality'; }
+  f('Era of birth', yrS, 10, 1, yrOdds,
+    `Born in ${yr}. Each decade post-1950 added ~2 years to global life expectancy, cut child mortality by 20%, and multiplied access to education, medicine, and opportunity.`);
 
-  // Height male
-  if (a.height_m && a.height_m !== 'skip') {
-    const hS = { under57: 2, '57_59': 5, '510_511': 7, '60_62': 9, over62: 10 };
-    f('Height (men)', hS[a.height_m] || 5, 10, a.height_m === 'over62' ? 'Top 10% of US men' : a.height_m === '60_62' ? 'Taller than 62%' : 'Average range', 'Men 6\'0"+ earn ~$5k more annually and are disproportionately promoted (U. Florida, Judge et al.)');
+  // GENDER - historically massive determinant of rights, safety, opportunity
+  // Male = historically privileged default. Female in modern era = near-equal but still disadvantaged in many contexts.
+  const gS = { male: 7, female: 5, nonbinary: 5 };
+  const gOdds = { male: 'Male — historically the default for rights, wealth, safety', female: 'Female — born in the first era approaching legal equality', nonbinary: 'Born in a rare era with growing recognition' };
+  f('Gender', gS[a.gender] || 5, 7, 1, gOdds[a.gender] || '',
+    'In 1800, women could not vote, own property, attend university, or work most jobs in most countries. A woman born in 1850 had a 1-in-5 lifetime chance of dying in childbirth. Today, legal equality is nearly universal in developed nations — a ~200-year-old achievement covering only the last 0.1% of human history.');
+
+  // PHYSICAL HEALTH - foundational. Poor health limits everything.
+  const hlS = { excellent: 10, good: 7, fair: 4, poor: 1 };
+  const hlOdds = { excellent: 'Only ~17% of Americans rate health as excellent (CDC)', good: 'Top 45% — above average health', fair: '~28% of Americans — below average', poor: 'Significant health burden affecting all life dimensions' };
+  f('Physical health', hlS[a.health] || 5, 10, 1, hlOdds[a.health] || '',
+    '60% of American adults have at least one chronic disease; 40% have two or more (CDC 2023). Globally, 1.3 billion people live with a significant disability. Excellent health is a foundational privilege — it determines energy, longevity, earning potential, and quality of daily life.');
+
+  // DISABILITY - binary but powerful
+  const disS = { none: 10, minor: 7, moderate: 4, severe: 1 };
+  f('Disability status', disS[a.disability] || 7, 10, 1,
+    a.disability === 'none' ? '~75% of Americans report no disability' : a.disability === 'minor' ? '~14% with minor limitations' : 'Significant limitation affecting daily outcomes',
+    '1 in 4 US adults has some disability (CDC). Globally, 1.3 billion live with significant disability. People with severe disabilities earn on average 37% less than non-disabled peers and face barriers to education, employment, and social participation at every level.');
+
+  // CHILDHOOD ECONOMIC ENVIRONMENT - Chetty research: strongest predictor of adult outcomes
+  const guwS = { wealthy: 10, upper_middle: 8.5, middle: 6.5, lower_middle: 4.5, poor: 2.5, poverty: 1 };
+  const guwOdds = { wealthy: 'Top 5% — wealthy household', upper_middle: 'Top 20% — upper middle class', middle: 'Middle 40% of Americans', lower_middle: 'Lower 40%', poor: 'Bottom 20% — working poor', poverty: 'Bottom 10% — near or in poverty' };
+  f('Childhood economic environment', guwS[a.grew_up_wealth] || 5, 10, 1, guwOdds[a.grew_up_wealth] || '',
+    'Harvard economist Raj Chetty\'s Opportunity Insights found that a child\'s ZIP code (i.e., the economic environment they grew up in) is the single strongest predictor of adult income — stronger than race, education, or individual effort. Children from the top income quintile are 5x more likely to reach the top quintile as adults than children from the bottom quintile.');
+
+  // FAMILY STABILITY - Chetty: second strongest predictor after geography
+  const parS = { yes: 10, divorced_ok: 7, divorced_hard: 4.5, single: 3.5, other: 4 };
+  const parOdds = { yes: 'Intact two-parent home — only ~37% of US children', divorced_ok: 'Divorced but stable co-parenting', divorced_hard: 'High-conflict divorce — significant impact', single: 'Single parent — strong statistical headwinds', other: 'Non-traditional household' };
+  f('Family stability', parS[a.parents_together] || 5, 10, 1, parOdds[a.parents_together] || '',
+    'Raj Chetty (Harvard, 2022): the share of children growing up in two-parent households is the strongest community-level predictor of upward economic mobility — stronger than school quality, income inequality, or social capital. Children from stable two-parent homes complete more education, earn more, and are less likely to be incarcerated.');
+
+  // ============================================
+  // TIER 2 - MAJOR LIFE SHAPERS (weight x3)
+  // ============================================
+
+  // INCOME - using log scale because marginal utility of money is logarithmic
+  // Each doubling of income has roughly equal happiness/opportunity impact
+  const incMap = { '0': 0, '1_15k': 2, '15_30k': 3.5, '30_50k': 5, '50_75k': 6.5, '75_100k': 7.5, '100_200k': 8.5, '200_500k': 9.5, '500k_plus': 10 };
+  const incOdds = { '0': 'No income — bottom', '1_15k': 'Bottom 15% of US earners', '15_30k': 'Bottom 25% of US earners', '30_50k': '~35th–45th percentile', '50_75k': '~50th–65th percentile (US median ~$40k individual)', '75_100k': 'Top 30% of US individual earners', '100_200k': 'Top 20% US / Top 1% globally', '200_500k': 'Top 5% US / Top 0.5% globally', '500k_plus': 'Top 1% US / Top 0.1% globally' };
+  f('Personal income', incMap[a.income] || 4, 10, 2, incOdds[a.income] || '',
+    'US median individual income: ~$40,480 (BLS 2023). Top 10% threshold: ~$130k. Top 1%: ~$560k. Globally, earning $32,400/year puts you in the top 1% of all humans alive (World Bank PPP, 2023). Income is the primary driver of access to healthcare, education, safety, and opportunity.');
+
+  // NET WORTH - better predictor of long-term security than income
+  const nwS = { negative: 0, '0_10k': 2, '10_100k': 4, '100_500k': 6.5, '500k_1m': 8, '1m_5m': 9, '5m_plus': 10 };
+  const nwOdds = { negative: '~33% of US adults have negative net worth', '0_10k': 'Below US median ($121k)', '10_100k': 'Near US median', '100_500k': 'Top 40% of US households', '500k_1m': 'Top 20% — significant wealth', '1m_5m': 'Top 10% — wealthy', '5m_plus': 'Top 2% — very wealthy' };
+  f('Net worth', nwS[a.net_worth] || 3, 10, 2, nwOdds[a.net_worth] || '',
+    'Federal Reserve Survey of Consumer Finances (2022): US median net worth $192,700 (mean $1.06M, heavily skewed). Top 10% hold 66% of all US wealth. Net worth predicts financial resilience — the ability to weather job loss, illness, or emergency — better than income alone.');
+
+  // EDUCATION - strong causal effect on income, health, longevity, civic participation
+  const eduS = { no_hs: 0, hs: 3, some_college: 4.5, associates: 5.5, bachelors: 7, masters: 8, professional: 9.5, phd: 10 };
+  const eduOdds = { no_hs: 'Bottom 9% -- no HS diploma', hs: 'HS diploma -- 36% of US adults', some_college: 'Some college -- 20% of US adults', associates: 'Associates degree -- 10% of US adults', bachelors: 'Bachelors degree -- top 37% of US adults / top 8% globally', masters: 'Masters degree -- top 14% of US adults / top 3% globally', professional: 'Professional degree (MD/JD/MBA) -- top 3% of US / top 0.5% globally', phd: 'PhD -- top 2% of US / top 0.3% globally' };
+  f('Education level', eduS[a.education] || 4, 10, 2, eduOdds[a.education] || '',
+    'Each level of education adds ~$10,000–$30,000 to median lifetime annual earnings (BLS 2023). PhD holders live 7+ years longer on average than HS dropouts (NIH). Globally, fewer than 10% of people hold any four-year degree — making a bachelor\'s degree a top-8% global credential.');
+
+  // FOOD SECURITY - survival-tier necessity
+  const fdS = { abundant: 10, comfortable: 8, adequate: 5.5, limited: 2, scarce: 0 };
+  const fdOdds = { abundant: 'Never food insecure — top 15% globally', comfortable: '3 meals/day — top 30% globally', adequate: 'Enough but constrained — near global median', limited: 'Food insecure — 800M people globally', scarce: 'Severely food insecure — 300M+ globally' };
+  f('Food security', fdS[a.food_security] || 5, 10, 2, fdOdds[a.food_security] || '',
+    '828 million people are chronically hungry worldwide (UN FAO 2022). Food insecurity stunts cognitive development in children, reduces work productivity by up to 20%, and is linked to higher rates of chronic disease. For most of human history, famine was a recurring reality — not a distant statistic.');
+
+  // CLEAN WATER - kills 1.4M/year when absent
+  const cwS = { yes: 10, filter: 8, bottled: 5, no: 0 };
+  f('Clean water access', cwS[a.clean_water] || 5, 10, 2,
+    a.clean_water === 'yes' ? 'Tap water — ~71% of world has this' : a.clean_water === 'no' ? '2 billion people lack this' : 'Partial access',
+    'WHO 2023: 2 billion people lack safely managed drinking water at home. Waterborne diseases (cholera, typhoid, dysentery) kill 1.4 million people per year — mostly children under 5. Clean running water from a tap is a modern miracle that ~29% of the world\'s population still does not have.');
+
+  // SHELTER - Maslow baseline
+  const shS = { own_paid: 10, own_mortgage: 8, rent_stable: 5.5, rent_precarious: 3, family: 4, homeless: 0 };
+  const shOdds = { own_paid: 'Fully paid home — ~23% of US homeowners', own_mortgage: 'Homeowner with mortgage — ~48% of US adults', rent_stable: 'Stable renter — ~36% of US adults', rent_precarious: 'Housing-stressed renter', family: 'Living with family', homeless: 'Unhoused — ~600K Americans on any given night' };
+  f('Housing security', shS[a.shelter] || 5, 10, 2, shOdds[a.shelter] || '',
+    'US homeownership rate: ~66% (Census Bureau 2023). Globally, ~1.1 billion people live in slums or inadequate housing (UN-Habitat). Home ownership is the primary vehicle for generational wealth — homeowners\' median net worth ($396k) is 40x that of renters ($10k) (Fed Reserve 2022).');
+
+  // PHYSICAL SAFETY
+  const safS = { fully: 10, mostly: 7, sometimes: 3, no: 0 };
+  f('Physical safety', safS[a.safety] || 5, 10, 2,
+    a.safety === 'fully' ? 'Fully safe — developed-world baseline' : a.safety === 'no' ? 'Unsafe — affects 1B+ people globally' : 'Moderate safety',
+    'Over 2 billion people live in conflict-affected or fragile states (World Bank 2023). 117 million people are currently displaced by violence or persecution (UNHCR 2024). Physical safety — the ability to go about your day without fear of violence — is foundational to every other dimension of wellbeing.');
+
+  // POLITICAL FREEDOM
+  const frS = { fully: 10, mostly: 7.5, limited: 3, none: 0 };
+  f('Political & personal freedom', frS[a.political_freedom] || 5, 10, 2,
+    a.political_freedom === 'fully' ? 'Full democracy — 43% of world (Freedom House 2024)' : a.political_freedom === 'none' ? 'No freedom — 38% of world lives "Not Free"' : 'Partial freedom',
+    'Freedom House 2024: 43% of the global population lives in a Free country; 19% in Partly Free; 38% — nearly 3 billion people — live in countries rated Not Free. Democracy as the dominant form of government is only ~200 years old. Most humans who ever lived died as subjects of a king, emperor, or warlord.');
+
+  // ELECTRICITY
+  const elS = { full: 10, mostly: 7, limited: 3, none: 0 };
+  f('Electricity & utilities', elS[a.electricity] || 5, 10, 2,
+    a.electricity === 'full' ? '~91% of world has some electricity' : '733 million people have no electricity (IEA 2022)',
+    'IEA 2022: 733 million people — mostly in sub-Saharan Africa and South Asia — have no electricity at all. Electric power has only been common for ~100 years. Without it: no refrigeration (food spoils), no medical equipment, no climate control, no communication, and studying after dark by candle or kerosene kills the lungs.');
+
+  // MENTAL HEALTH - increasingly recognized as major life determinant
+  const mhS = { thriving: 10, good: 7, struggling: 3.5, crisis: 0 };
+  const mhOdds = { thriving: 'Genuinely thriving — only ~23% of Americans (Gallup)', good: 'Mostly positive — above average', struggling: '~21% of US adults have a mental health condition (NIMH)', crisis: 'In crisis — significant life impairment' };
+  f('Mental health', mhS[a.mental_health] || 5, 10, 2, mhOdds[a.mental_health] || '',
+    'NIMH 2023: 1 in 5 US adults experiences a mental illness; 1 in 20 has a serious mental illness. Depression is the leading cause of disability worldwide (WHO). Mental health profoundly shapes every other life dimension — work performance, relationships, physical health, decision-making, and longevity.');
+
+  // ============================================
+  // TIER 3 - SIGNIFICANT SECONDARY (weight x1.5)
+  // ============================================
+
+  // CAREER LEVEL
+  const jlS = { entry: 2, mid: 5, senior: 7, manager: 8, executive: 9.5, owner: 9, unemployed: 0, na: 4 };
+  const jlOdds = { entry: 'Entry level', mid: 'Mid-level — majority of workers', senior: 'Senior/Lead — top 30%', manager: 'Manager/Director — top 15%', executive: 'C-suite/VP — top 1–3%', owner: 'Business owner — ~15M in US', unemployed: 'Unemployed — ~4% of labor force', na: 'N/A' };
+  f('Career level', jlS[a.job_level] || 4, 10, 3, jlOdds[a.job_level] || '',
+    'Korn Ferry research: odds of reaching C-suite from entry level are ~1 in 500 (0.2%). Business owners generate more wealth per individual than nearly any other career path. Career level is the compound result of education, network, performance, and luck over decades.');
+
+  // RELATIONSHIP STATUS - Harvard study: #1 predictor of late-life happiness
+  const relS = { married_happy: 10, dating: 6.5, married_ok: 5, single_ok: 6, single_lonely: 3, divorced: 4.5, widowed: 4 };
+  const relOdds = { married_happy: 'Happily partnered — ~48% married but happy ones rarer', dating: 'Dating — active social connection', married_ok: 'Complicated partnership', single_ok: 'Single and content', single_lonely: 'Single and lonely — significant wellbeing impact', divorced: 'Divorced/separated', widowed: 'Widowed' };
+  f('Relationship quality', relS[a.relationship] || 5, 10, 3, relOdds[a.relationship] || '',
+    'Harvard Study of Adult Development (84 years, ongoing): warm relationships are the single strongest predictor of late-life health and happiness — more than wealth, IQ, or fame. Happily married men live on average 10 years longer than unmarried men. Loneliness has health effects equivalent to smoking 15 cigarettes per day (BYU meta-study, 2015).');
+
+  // CLOSE FRIENDS - social capital
+  const cfS = { '0': 0, '1_2': 4, '3_5': 7, '6_10': 9, '10plus': 10 };
+  const cfOdds = { '0': '12% of Americans — no close friends (2021 survey)', '1_2': '~25% of Americans', '3_5': 'Average — most Americans have 3–5', '6_10': 'Above average social wealth', '10plus': 'Top 10% socially connected' };
+  f('Close friendships', cfS[a.close_friends] || 4, 10, 3, cfOdds[a.close_friends] || '',
+    'Survey Center on American Life (2021): 12% of Americans report no close friends — triple the 1990 rate of 3%. Social connection reduces all-cause mortality risk by 50% (BYU meta-study). The number of close friends you have is one of the strongest predictors of happiness, resilience, and longevity.');
+
+  // MENTOR/SPONSOR - significant career multiplier
+  const menS = { multiple: 10, one: 7.5, some: 5, none: 3 };
+  f('Mentorship & sponsorship', menS[a.mentor] || 4, 10, 3,
+    a.mentor === 'multiple' ? 'Multiple mentors — exceptional network advantage' : a.mentor === 'none' ? 'Self-made — no mentor advantage' : 'Some mentorship',
+    'Herminia Ibarra (London Business School): having a sponsor — someone who advocates for you in rooms you\'re not in — is the single biggest predictor of career advancement beyond merit. 76% of people say mentors are important but only 37% currently have one. Access to mentors correlates directly with family wealth and social network quality.');
+
+  // INTERNET ACCESS - gate to education, commerce, community in modern era
+  const intS = { fast: 10, ok: 7, slow: 4, none: 0 };
+  f('Internet access', intS[a.internet] || 5, 10, 3,
+    a.internet === 'fast' ? 'Top-tier access — ~33% of world' : a.internet === 'none' ? '2.7B people have no internet (ITU 2023)' : 'Partial access',
+    'ITU 2023: 2.7 billion people — 34% of the global population — have never used the internet. Broadband access is now recognized as infrastructure as critical as roads and electricity. The internet has democratized access to education (Khan Academy, Coursera, YouTube tutorials), markets (e-commerce, remote work), and information — but only for those who have it.');
+
+  // SLEEP - chronically underrated health factor
+  const slS = { great: 10, ok: 6.5, poor: 3, very_poor: 0 };
+  f('Sleep quality', slS[a.sleep] || 5, 10, 3,
+    a.sleep === 'great' ? '~65% get 7+ hours but only ~35% feel truly rested' : 'Sleep deprivation affects 70M+ Americans chronically',
+    'CDC: 35% of US adults get less than 7 hours per night. Chronic sleep deprivation is causally linked to heart disease, Type 2 diabetes, obesity, depression, and reduced immune function. Matthew Walker (UC Berkeley): sleeping less than 6 hours per night for 2 weeks produces cognitive impairment equivalent to 48 hours of total sleep deprivation.');
+
+  // COUNTRIES VISITED - proxy for wealth, freedom, curiosity, opportunity
+  const tvS = { '0': 1, '1_3': 3.5, '4_10': 6, '11_25': 8, '26_50': 9.5, '50plus': 10 };
+  const tvOdds = { '0': '~60% of Americans have never left the US', '1_3': '~20% — occasional traveler', '4_10': 'Top 15% of American travelers', '11_25': 'Top 5% globally — well-traveled', '26_50': 'Top 1% globally — extensive traveler', '50plus': 'Top 0.1% — extraordinary world traveler' };
+  f('International travel', tvS[a.countries_visited] || 3, 10, 3, tvOdds[a.countries_visited] || '',
+    'Only 42% of Americans hold a valid passport. Across all of human history, fewer than 1% of people ever left their home region by choice. The ability to freely cross international borders for leisure is a product of passport power, disposable income, and vacation time — all modern luxuries concentrated in wealthy democracies.');
+
+  // ============================================
+  // TIER 4 - MINOR / INTERESTING (weight x0.5)
+  // ============================================
+
+  // HEIGHT - real but modest income effects
+  if (a.height) {
+    if (a.gender === 'male') {
+      const hS = { under57: 2, '57_59': 5, '510_511': 7, '60_62': 8.5, over62: 10 };
+      const hO = { under57: "Below average — bottom 25% of US men", '57_59': "Below average (US avg 5ft9in)", '510_511': "Average US male height", '60_62': "Taller than 62% of US men", over62: "Top 10% of US men by height" };
+      f('Height', hS[a.height] || 5, 10, 4, hO[a.height] || '',
+        'Timothy Judge (U. of Florida): each inch of height above average correlates with ~$789 more in annual earnings. Men 6ft0in+ are disproportionately represented in CEO positions — ~30% of Fortune 500 CEOs are over 6ft2in, vs. ~3.9% of general male population. Effect is real but modest — a Tier 4 factor, not destiny.');
+    } else if (a.gender === 'female') {
+      const hS = { under53: 5, '53_55': 7, '56_58': 8, over58: 7 };
+      const hO = { under53: "Below average US women", '53_55': "Average US woman (5ft4in)", '56_58': "Above average", over58: "Taller than 85% of US women" };
+      f('Height', hS[a.height] || 6, 8, 4, hO[a.height] || '',
+        'Height effects on earnings and outcomes for women are more modest and less consistent than for men. Some research shows taller women earn slightly more; other studies show neutral or negative effects in certain industries. Minor factor.');
+    } else {
+      const hS = { short: 4, average: 6, tall: 8 };
+      f('Height', hS[a.height] || 5, 8, 4, 'Self-reported', 'Height has some correlation with outcomes across genders, but effect size is modest compared to foundational factors.');
+    }
   }
-  if (a.height_f && a.height_f !== 'skip') {
-    const hS = { under53: 5, '53_55': 7, '56_58': 8, over58: 7 };
-    f('Height (women)', hS[a.height_f] || 6, 8, 'Average US woman is 5\'4"', 'Height has more modest outcomes correlations for women than men');
-  }
 
-  // Eye color
+  // EYE COLOR - rarity only, no outcome effect
   const eyeS = { brown: 3, hazel: 6, blue: 7, green: 9, gray: 10, amber: 8, other: 4 };
-  const eyeO = { brown: '~45% of Americans', hazel: '~18%', blue: '~27%', green: 'Only ~2% of Americans — rarest', gray: 'Extremely rare — ~1% globally', amber: '~5%', other: 'Variable' };
-  f('Eye color', eyeS[a.eye_color] || 5, 10, eyeO[a.eye_color] || '', 'Green eyes: only 2% of Americans. Gray: ~1% globally — among the rarest traits on earth.');
+  const eyeO = { brown: '~45% of Americans — most common', hazel: '~18% of Americans', blue: '~27% of Americans', green: 'Rarest common color — ~2% globally', gray: 'Extremely rare — ~1% globally', amber: '~5% of Americans', other: 'Variable' };
+  f('Eye color (rarity)', eyeS[a.eye_color] || 5, 10, 4, eyeO[a.eye_color] || '',
+    'No causal effect on life outcomes — purely rarity scoring. Green eyes result from low melanin + Rayleigh scattering; gray from extremely low melanin + high collagen in iris stroma. Gray eyes (~1% globally) are among the rarest physical traits on earth.');
 
-  // Hair color
-  const hairS = { red: 10, blonde: 7, light_brown: 5, medium_brown: 3, dark_brown: 2, black: 2, gray_white: 5 };
-  const hairO = { red: 'Only 1–2% of world population', blonde: '~3% of world, ~16% US', dark_brown: 'Common', medium_brown: 'Most common globally', black: '~85% of global population', gray_white: 'Early natural graying — ~5% under 40' };
-  f('Hair color', hairS[a.hair_color] || 3, 10, hairO[a.hair_color] || '', 'Red hair from MC1R gene variant. Most common in Ireland (10%), Scotland (13%). Extremely rare in Asia.');
+  // HAIR COLOR - rarity only
+  const hairS = { red: 10, blonde: 7, medium_brown: 4, dark_brown: 3, black: 2, gray_white: 5 };
+  const hairOdds = { red: '1–2% of world — rarest natural color', blonde: '~3% of world (~16% US/N.Europe)', medium_brown: '~11% of world', dark_brown: '~16% of world', black: '~85% of global population', gray_white: 'Early natural graying — ~5% under 40' };
+  f('Hair color (rarity)', hairS[a.hair_color] || 3, 10, 4, hairOdds[a.hair_color] || '',
+    'Red hair from MC1R gene variant; most common in Ireland (13%), Scotland (10%). Blonde hair is a recessive trait — global frequency 2–3%, but ~16% in Northern Europe/US due to founder effects. No causal effect on life outcomes — purely genetic rarity.');
 
-  // Health
-  const hlS = { excellent: 10, good: 7, fair: 4, poor: 0 };
-  f('Physical health', hlS[a.health] || 5, 10, a.health === 'excellent' ? 'Only 17% of Americans rate health "excellent"' : 'Majority have at least one chronic condition', '60% of Americans have at least one chronic disease. 40% have two or more. (CDC)');
+  // WORK-LIFE BALANCE - quality of life factor
+  const wlS = { excellent: 10, good: 7, ok: 4, poor: 1 };
+  f('Work-life balance', wlS[a.work_life] || 4, 10, 4,
+    a.work_life === 'excellent' ? 'Top ~15% — most workers lack full autonomy' : 'Majority feel overextended',
+    'The 40-hour work week was only federally mandated in the US in 1938. Before industrialization, most laborers worked 60–80 hours/week with no vacation, sick days, or retirement. Autonomy over one\'s time is a historically recent and geographically limited luxury.');
 
-  // Mental health
-  const mhS = { thriving: 8, good: 6, struggling: 3, crisis: 0 };
-  f('Mental wellbeing', mhS[a.mental_health] || 4, 8, a.mental_health === 'thriving' ? 'Only ~23% of Americans truly thriving' : '~50% experience mental health condition in lifetime', '1 in 5 Americans has a diagnosable mental health condition. Thriving psychological health is genuinely rare.');
+  // ============================================
+  // MODE-SPECIFIC FACTORS
+  // ============================================
 
-  // Clean water
-  const cwS = { yes: 6, filter: 5, bottled: 3, no: 0 };
-  f('Clean water access', cwS[a.clean_water] || 3, 6, a.clean_water === 'yes' ? 'Only ~71% of world has this' : 'Billions lack this', 'For 99% of human history, all water was potentially lethal. Clean tap water is a profound modern miracle.');
-
-  // Food
-  const fdS = { abundant: 10, comfortable: 8, adequate: 5, limited: 2, scarce: 0 };
-  f('Food security', fdS[a.food_security] || 5, 10, a.food_security === 'abundant' ? 'Top 15% of all humans alive' : a.food_security === 'comfortable' ? 'Top 30%' : 'Below median', '800M people are food insecure today. Famine defined human existence for most of history.');
-
-  // Shelter
-  const shS = { own_paid: 10, own_mortgage: 8, rent_stable: 5, rent_precarious: 3, family: 4, homeless: 0 };
-  f('Housing security', shS[a.shelter] || 5, 10, a.shelter === 'own_paid' ? 'Only ~23% of homeowners fully paid off' : a.shelter === 'own_mortgage' ? '~48% own with mortgage' : '~36% rent', 'Private property ownership was a privilege of the wealthy minority for 99% of human history.');
-
-  // Electricity
-  const elS = { full: 6, mostly: 5, limited: 2, none: 0 };
-  f('Electricity & utilities', elS[a.electricity] || 3, 6, a.electricity === 'full' ? '~87% of world has electricity' : 'Majority still lack reliable power', 'Electrical power has only been common for ~100 years. For 99.9% of human history no one had it.');
-
-  // Income (US-relevant scale, recalibrated per mode)
-  const incUS = { '0': 0, '1_15k': 5, '15_30k': 10, '30_50k': 15, '50_75k': 20, '75_100k': 26, '100_200k': 32, '200_500k': 38, '500k_plus': 44 };
-  const incOdds = { '0': 'No income', '1_15k': 'Bottom 15% of US', '15_30k': 'Bottom 30%', '30_50k': '~35th percentile', '50_75k': '~55th — near US median', '75_100k': 'Top 35%', '100_200k': 'Top 20%', '200_500k': 'Top 5%', '500k_plus': 'Top 1%' };
-  f('Personal income', incUS[a.income] || 10, 44, incOdds[a.income] || '', 'US median individual income ~$40,000 (BLS 2023). Top 1% threshold ~$560,000. Globally, you are rich by almost any income.');
-
-  // Net worth
-  const nwS = { negative: 0, '0_10k': 4, '10_100k': 9, '100_500k': 16, '500k_1m': 22, '1m_5m': 28, '5m_plus': 34 };
-  const nwO = { negative: '~33% of US adults', '0_10k': 'Below US median', '10_100k': 'Near US median (~$121k)', '100_500k': 'Top 40%', '500k_1m': 'Top 20%', '1m_5m': 'Top 10%', '5m_plus': 'Top 2%' };
-  f('Net worth', nwS[a.net_worth] || 6, 34, nwO[a.net_worth] || '', 'US median net worth ~$121,700 (Fed Reserve 2022). Top 10% hold 66% of all US wealth.');
-
-  // Education
-  const eduS = { no_hs: 0, hs: 5, some_college: 8, associates: 10, bachelors: 16, masters: 20, professional: 25, phd: 27 };
-  const eduO = { no_hs: '~9% of US adults', hs: 'HS only — 27%', some_college: '~20%', associates: '~10%', bachelors: 'Top 37%', masters: 'Top 14%', professional: 'Top 3%', phd: 'Top 2% — fewer than 4.5M Americans' };
-  f('Education level', eduS[a.education] || 7, 27, eduO[a.education] || '', 'Globally, only ~10% of people hold a college degree. A PhD puts you in the top 2% of Americans and 0.5% worldwide.');
-
-  // Career level
-  const jlS = { entry: 3, mid: 7, senior: 11, manager: 14, executive: 18, owner: 17, unemployed: 0, na: 5 };
-  f('Career level', jlS[a.job_level] || 5, 18, a.job_level === 'executive' ? 'Top 1–3% of corporate hierarchy' : a.job_level === 'owner' ? 'One of ~15M US business owners' : 'Mid-range', 'Odds of reaching C-suite from entry level: ~1 in 500 (Korn Ferry).');
-
-  // Countries visited
-  const tvS = { '0': 0, '1_3': 4, '4_10': 8, '11_25': 14, '26_50': 18, '50plus': 24 };
-  const tvO = { '0': '60% of Americans never travel abroad', '1_3': '~20% of Americans', '4_10': 'Top 15% of travelers', '11_25': 'Top 5% globally', '26_50': 'Top 1% globally', '50plus': 'Top 0.1% — extraordinary' };
-  f('Countries visited', tvS[a.countries_visited] || 4, 24, tvO[a.countries_visited] || '', 'Only 42% of Americans hold a passport. Only 10% of all humans alive have ever traveled internationally for leisure.');
-
-  // Relationship
-  const relS = { married_happy: 8, dating: 6, married_ok: 4, single_ok: 5, single_lonely: 2, divorced: 3, widowed: 4 };
-  f('Relationship', relS[a.relationship] || 4, 8, a.relationship === 'married_happy' ? '~48% married — happy ones rarer still' : '~33% single', 'Happily married men live ~10 years longer. Harvard Study of Adult Development (84 years ongoing): relationships are the #1 predictor of life satisfaction.');
-
-  // Close friends
-  const cfS = { '0': 0, '1_2': 3, '3_5': 7, '6_10': 9, '10plus': 10 };
-  f('Close friendships', cfS[a.close_friends] || 4, 10, a.close_friends === '0' ? '12% of Americans have no close friends' : a.close_friends === '10plus' ? 'Top 10% socially' : 'Average', 'Since 1990, Americans with no close friends has tripled. Strong social connections reduce mortality by 50% (BYU meta-study).');
-
-  // Freedom
-  const frS = { fully: 8, mostly: 6, limited: 2, none: 0 };
-  f('Personal freedom', frS[a.political_freedom] || 4, 8, a.political_freedom === 'fully' ? 'Only ~13% of all humans ever lived in true democracies' : 'Majority of humans lived under authoritarian rule', 'Democracy is ~200 years old. 3.5+ billion people today live under authoritarian or semi-authoritarian regimes.');
-
-  // Safety
-  const safS = { fully: 6, mostly: 4, sometimes: 2, no: 0 };
-  f('Physical safety', safS[a.safety] || 3, 6, a.safety === 'fully' ? 'Many never feel fully safe' : 'Safety is not universal', 'For most of human history, violence, crime, and state-sponsored persecution were everyday realities for ordinary people.');
-
-  // Family stability
-  const parS = { yes: 8, divorced_ok: 6, divorced_hard: 4, single: 3, other: 3 };
-  f('Family stability', parS[a.parents_together] || 4, 8, a.parents_together === 'yes' ? 'Only ~37% of US children in intact two-parent homes' : 'Majority experience some family disruption', 'Raj Chetty (Harvard): intact two-parent household is among the strongest predictors of upward mobility.');
-
-  // Grew up wealthy
-  const guwS = { wealthy: 10, upper_middle: 8, middle: 6, lower_middle: 4, poor: 2, poverty: 0 };
-  f('Childhood wealth', guwS[a.grew_up_wealth] || 5, 10, a.grew_up_wealth === 'wealthy' ? 'Top 5% of childhood environments' : a.grew_up_wealth === 'upper_middle' ? 'Top 20%' : 'Majority grew up in similar conditions', 'Childhood economic environment is one of the strongest predictors of lifetime outcomes (Chetty, Opportunity Insights).');
-
-  // Sleep
-  const slS = { great: 6, ok: 4, poor: 2, very_poor: 0 };
-  f('Sleep quality', slS[a.sleep] || 3, 6, a.sleep === 'great' ? '~35% of Americans get adequate sleep' : 'Sleep deprivation affects 70M+ Americans', 'CDC: 35% of US adults get less than 7 hours/night. Chronic sleep deprivation links to heart disease, diabetes, reduced life expectancy.');
-
-  // Mentor
-  const menS = { multiple: 8, one: 6, some: 4, none: 2 };
-  f('Mentorship & support', menS[a.mentor] || 3, 8, a.mentor === 'multiple' ? 'Exceptional — multiple doors opened' : 'Having even one mentor doubles career advancement odds', 'Research shows having a mentor significantly increases likelihood of promotion, higher salary, and career satisfaction.');
-
-  // ── MODE-SPECIFIC SCORING ──
   if (m === 'us') {
+    // US STATE - massive income/opportunity differentials within America
     const stW = STATE_RANK[a.us_state] || 0.5;
-    f('US State of residence', Math.round(stW * 12), 12, stW >= 0.9 ? `${a.us_state} — top states by income` : stW >= 0.7 ? 'Above national median' : 'Below national median', `${a.us_state || 'Your state'} median household income places it in the ${stW >= 0.7 ? 'upper' : 'lower'} half of US states.`);
+    const stS = stW * 10;
+    f('State of residence', stS, 10, 2,
+      stW >= 0.9 ? `${a.us_state} — top 5 states by median income` : stW >= 0.7 ? `${a.us_state} — above national median` : stW >= 0.5 ? `${a.us_state} — near median` : `${a.us_state} — below national median`,
+      `State of residence determines school quality, job market access, cost of living, and safety. Maryland (#1) has a median HH income of ~$98k vs. Mississippi (~$46k). That $52k annual gap compounds over a lifetime into dramatically different outcomes. (US Census ACS 2022)`);
 
-    const ethS = { white: 6, asian: 7, hispanic: 4, black: 3, middle_eastern: 5, mixed: 5, native: 2, other: 4 };
-    const ethO = { white: '~59% of US', asian: '~6% but highest median income ($98k)', hispanic: '~19%', black: '~13%', native: '~1%', mixed: '~3%', other: 'Variable' };
-    f('US ethnicity', ethS[a.ethnicity_us] || 4, 7, ethO[a.ethnicity_us] || '', 'Asian Americans: median HH income $98,000. White: $74k. Hispanic: $55k. Black: $46k. (US Census Bureau)');
+    // US ETHNICITY - real statistical outcome differences (NOT a moral judgment - purely statistical)
+    const ethS = { white: 6.5, asian: 8, hispanic: 4.5, black: 3.5, middle_eastern: 5.5, mixed: 5, native: 2.5, other: 4.5 };
+    const ethO = { white: '~59% of US — median HH income $74k', asian: '~6% of US — median HH income $98k (highest)', hispanic: '~19% of US — median HH income $55k', black: '~13% of US — median HH income $46k', middle_eastern: '~2% of US — above average median', mixed: '~3% of US', native: '~1% of US — median HH income $43k', other: 'Variable' };
+    f('US ethnicity context', ethS[a.ethnicity_us] || 4.5, 8, 2, ethO[a.ethnicity_us] || '',
+      'US Census Bureau 2022: significant median household income gaps persist by ethnicity. Asian Americans ($98k) > White ($74k) > Hispanic ($55k) > Black ($46k) > Native American ($43k). These gaps reflect historical policy, discrimination, and opportunity access — not individual capability. They represent statistical starting conditions, not destiny.');
 
-    const indS = { tech: 14, finance: 15, medicine: 15, law: 13, engineering: 12, education: 7, government: 8, real_estate: 11, creative: 7, skilled_trade: 9, service: 4, other_ind: 6 };
-    f('Industry', indS[a.us_industry] || 6, 15, a.us_industry === 'finance' || a.us_industry === 'medicine' ? 'Top 5% earning sector' : 'Variable', 'Finance and medicine remain the highest-paying US industries. Tech median: $120k. Medicine median: $208k (BLS).');
+    // INDUSTRY
+    const indS = { tech: 8.5, finance: 9, medicine: 9, law: 8, engineering: 8, education: 5, government: 5.5, real_estate: 7, creative: 5, skilled_trade: 6.5, service: 3, other_ind: 5 };
+    const indO = { tech: 'Median $120k — top 5% of industries', finance: 'Median $95k+ — top 5% of industries', medicine: 'Physicians median $208k', law: 'Attorneys median $126k', engineering: 'Median $100k+', education: 'Teachers median $61k — underpaid', government: 'Stable with strong benefits', real_estate: 'High variance — ceiling is high', creative: 'High variance, competitive', skilled_trade: 'Plumbers/electricians median $60-80k', service: 'Median ~$30-40k — largest US workforce segment' };
+    f('Industry', indS[a.us_industry] || 5, 10, 3, indO[a.us_industry] || '',
+      'BLS Occupational Outlook 2023: industry choice correlates with income more than individual performance within that industry. A median performer in finance earns more than a top performer in food service. Finance, medicine, and tech are the three highest-paying sectors by median compensation.');
 
-    const ctS = { no_college: 2, community: 5, state: 9, top50: 15, ivy: 20, trade: 8 };
-    const ctO = { no_college: 'No college', community: '43% of college students', state: 'Majority of 4-year students', top50: 'Top 50 accept ~25% on average', ivy: 'Harvard 3.2%, MIT 3.9%, Stanford 3.7%', trade: 'Undervalued but in-demand' };
-    f('College type', ctS[a.us_college_type] || 5, 20, ctO[a.us_college_type] || '', 'Ivy League graduates earn 40–70% more than average college grads in starting salary (PayScale).');
+    // COLLEGE TYPE
+    const ctS = { no_college: 2, community: 4.5, state: 7, top50: 8.5, ivy: 10, trade: 6.5 };
+    const ctO = { no_college: 'No college — 36% of US adults', community: '43% of college students attend community college', state: 'Public university — ~30% of 4-year students', top50: 'Top 50 — accept ~15–30% of applicants', ivy: 'Ivy/Top 10 — Harvard 3.2%, MIT 3.9%, Stanford 3.7%', trade: 'Trade/vocational — undervalued, strong ROI' };
+    f('College institution quality', ctS[a.us_college_type] || 5, 10, 3, ctO[a.us_college_type] || '',
+      'Raj Chetty (2023 Nature study): attending an elite university doubles the probability of reaching the top 1% of earners, primarily through the alumni network and employer signaling — not the education itself. Ivy League graduates have 60% of their class come from the top 1% of US household incomes.');
 
-    const hcS = { excellent: 8, good: 6, high_deductible: 4, medicaid: 3, none: 0 };
-    f('US Healthcare coverage', hcS[a.us_healthcare] || 4, 8, a.us_healthcare === 'none' ? '~8% of Americans uninsured' : 'Coverage quality varies dramatically', '~27M Americans were uninsured in 2023. Even insured Americans face the world\'s highest out-of-pocket medical costs.');
+    // HEALTHCARE
+    const hcS = { excellent: 10, good: 7.5, high_deductible: 4.5, medicaid: 4, none: 0 };
+    const hcO = { excellent: 'Excellent coverage — top ~20% of insured Americans', good: 'Good insurance — ~50% of Americans', high_deductible: 'High-deductible — ~30% of insured', medicaid: 'Medicaid — income-based government coverage', none: 'Uninsured — ~8% of Americans (~27M people)' };
+    f('Healthcare coverage', hcS[a.us_healthcare] || 5, 10, 2, hcO[a.us_healthcare] || '',
+      'KFF Health Insurance Survey 2023: ~27M Americans are uninsured. Medical debt is the leading cause of personal bankruptcy in the US — responsible for ~66% of all US personal bankruptcies (American Journal of Public Health). Even insured Americans face the world\'s highest out-of-pocket costs. Uninsured Americans have 40% higher mortality risk than insured peers.');
 
-    const invS = { active: 8, retirement: 6, minimal: 3, none: 0 };
-    f('Investments', invS[a.us_investments] || 3, 8, a.us_investments === 'active' ? 'Only ~58% of Americans own stocks' : 'Majority have little investment exposure', 'S&P 500 has returned ~10% annually since 1926. Not investing means losing ground to inflation every year.');
+    // INVESTMENTS
+    const invS = { active: 10, retirement: 7, minimal: 3.5, none: 1 };
+    f('Investment activity', invS[a.us_investments] || 3, 10, 3,
+      a.us_investments === 'active' ? 'Active investor — only ~14% of Americans actively invest beyond retirement' : a.us_investments === 'none' ? '~42% of Americans have no investments' : 'Passive/retirement investing',
+      'S&P 500 average annual return: ~10.7% (1957–2023). $10,000 invested in 1993 = ~$180,000 in 2023. Not investing means losing 3–4% per year to inflation in real terms. Only ~58% of Americans own any stock (Gallup 2023) — wealth compounds dramatically for those who participate.');
 
+    // HANDEDNESS - rarity, minor
     const lhS = { right: 3, left: 8, ambidextrous: 10 };
-    f('Handedness', lhS[a.us_left_right] || 4, 10, a.us_left_right === 'ambidextrous' ? 'Only ~1% of people' : a.us_left_right === 'left' ? '~10% of people' : '~89% right-handed', 'Left-handedness associated with stronger right-brain. Ambidexterity (~1%) is among the rarest physical traits.');
+    f('Handedness', lhS[a.us_left_right] || 3, 10, 4,
+      a.us_left_right === 'ambidextrous' ? 'Only ~1% of people — extremely rare' : a.us_left_right === 'left' ? '~10% of people are left-handed' : '~89% right-handed',
+      'Left-handedness (~10%) results from atypical brain lateralization — more right-hemisphere dominance. Associated with higher rates of creativity and divergent thinking in some studies. Ambidexterity (~1%) is genuinely rare. No strong causal effect on lifetime outcomes — Tier 4.');
 
-    const exS = { daily: 8, few_week: 7, weekly: 4, rarely: 1, never: 0 };
-    f('Exercise frequency', exS[a.us_exercise] || 3, 8, a.us_exercise === 'daily' ? 'Only ~23% of Americans meet exercise guidelines' : 'Only 19% of Americans exercise daily', 'CDC: only 23% of American adults meet both aerobic and muscle-strengthening guidelines. Regular exercise adds 4–7 years to life expectancy.');
-
-    const wlS = { excellent: 6, good: 5, ok: 3, poor: 1 };
-    f('Work-life balance', wlS[a.work_life] || 3, 6, a.work_life === 'excellent' ? 'Very few workers globally have this' : 'Majority overwork', '40-hour week mandated in 1938. Before industrialization, peasants worked dawn-to-dusk, 6 days/week, 52 weeks/year.');
+    // EXERCISE - major health/longevity factor
+    const exS = { daily: 10, few_week: 8, weekly: 5, rarely: 2, never: 0 };
+    f('Exercise frequency', exS[a.us_exercise] || 3, 10, 3,
+      a.us_exercise === 'daily' ? 'Daily exercise — only ~23% of Americans meet guidelines (CDC)' : a.us_exercise === 'never' ? '~25% of Americans are completely sedentary' : 'Moderate activity',
+      'CDC 2023: only 23% of American adults meet both aerobic and muscle-strengthening guidelines. Regular vigorous exercise adds 4–7 years to life expectancy, reduces risk of heart disease by 35%, depression by 30%, and Type 2 diabetes by 58%. It is arguably the highest-ROI health behavior available.');
 
   } else if (m === 'world') {
-    const ctryS = { usa: 20, can_aus_nz: 19, scandinavia: 19, uk: 17, w_europe: 17, japan_korea: 16, e_europe: 11, china: 9, latin_am: 8, middle_east: 8, n_africa: 7, india: 6, se_asia: 7, sub_saharan: 3, other_w: 7 };
-    const ctryO = { usa: 'Top 4% — born American', can_aus_nz: 'Top 6% globally', scandinavia: 'Top HDI nations on earth', w_europe: 'Top 15%', uk: 'Top 12%', japan_korea: 'Top 18%', e_europe: 'EU-adjacent', china: '1 in 5 alive are Chinese', latin_am: 'Above global median', sub_saharan: 'Hardest baseline on earth' };
-    f('Country of residence', ctryS[a.w_country_tier] || 7, 20, ctryO[a.w_country_tier] || '', 'The country you are born in determines more of your life outcome than virtually any other factor. (UNDP Human Development Index)');
+    // COUNTRY - single biggest global differentiator
+    const ctryS = { usa: 10, can_aus_nz: 9.5, scandinavia: 9.8, uk: 9, w_europe: 9, japan_korea: 8.5, e_europe: 6.5, china: 5.5, latin_am: 5, middle_east: 5, n_africa: 4.5, india: 4, se_asia: 4.5, sub_saharan: 1.5, other_w: 5 };
+    const ctryO = { usa: 'US — top 4% globally by income and opportunity', can_aus_nz: 'Top 5% globally — wealthy stable democracies', scandinavia: 'Top 3% — highest HDI nations on earth', w_europe: 'Top 12% globally', uk: 'Top 10% globally', japan_korea: 'Top 15% globally — highly developed', e_europe: 'EU-adjacent — growing opportunity', china: 'Middle income — rapid growth but authoritarian', latin_am: 'Developing — above global median', sub_saharan: 'Lowest HDI region — significant hardship' };
+    f('Country of residence', ctryS[a.w_country_tier] || 5, 10, 1, ctryO[a.w_country_tier] || '',
+      'UNDP Human Development Index 2023: country of birth determines more of a person\'s lifetime outcome than any other single factor. HDI gap between Norway (#1) and South Sudan (#191) is larger than the gap between the top and bottom US earners. Geography is destiny at the global scale.');
 
+    // CONFLICT EXPOSURE
     const confS = { never: 10, briefly: 7, yes_civilian: 3, yes_direct: 1, refugee: 0 };
-    f('War & conflict exposure', confS[a.w_conflict_exposure] || 5, 10, a.w_conflict_exposure === 'never' ? 'Living in total peace — rare in history' : 'Conflict affects 2B+ people globally', 'Over 2 billion people live in conflict-affected or fragile states (World Bank). Since 1900, ~100M+ died in wars.');
+    f('War & conflict exposure', confS[a.w_conflict_exposure] || 5, 10, 1,
+      a.w_conflict_exposure === 'never' ? 'Never in conflict — living in historical peace anomaly' : a.w_conflict_exposure === 'refugee' ? 'Forcibly displaced — 117M people globally (UNHCR 2024)' : 'Conflict-affected',
+      'UNHCR 2024: 117 million people are forcibly displaced globally — the highest number ever recorded. World Bank: 2 billion people live in conflict-affected or fragile states. Since 1900, over 200 million people have died in wars, genocides, and state-sponsored violence.');
 
-    const wfS = { no: 8, minor: 6, significant: 3, severe: 0 };
-    f('Family war impact', wfS[a.w_war_family] || 4, 8, a.w_war_family === 'no' ? 'Family untouched by war — uncommon globally' : 'Conflict ripples through generations', 'World War II killed an estimated 70–85 million people — 3% of the entire 1940 world population. Most families on earth were affected.');
+    // WAR FAMILY IMPACT
+    const wfS = { no: 10, minor: 7, significant: 3.5, severe: 0 };
+    f('Family impact of war', wfS[a.w_war_family] || 5, 10, 2,
+      a.w_war_family === 'no' ? 'Family untouched by war — relatively uncommon globally' : 'War has directly affected your family',
+      'WWII killed 70–85 million people — 3% of the entire 1940 world population. The Rwandan genocide killed ~800,000 people in 100 days in 1994. Syrian civil war displaced 6.9 million people and killed 500,000. War\'s impact ripples through families for generations via trauma, poverty, and displacement.');
 
-    const govS = { full_democracy: 10, flawed_democracy: 7, hybrid: 4, authoritarian: 1, totalitarian: 0 };
-    f('Government type', govS[a.w_government_type] || 4, 10, a.w_government_type === 'full_democracy' ? 'Only ~45% of world lives in any form of democracy' : 'Majority of humans live under restricted government', 'Freedom House 2024: only 43% of the world\'s population lives in a free country. 38% live in Not Free countries.');
+    // GOVERNMENT TYPE
+    const govS = { full_democracy: 10, flawed_democracy: 7, hybrid: 4, authoritarian: 1.5, totalitarian: 0 };
+    f('Government type', govS[a.w_government_type] || 4, 10, 1,
+      a.w_government_type === 'full_democracy' ? 'Full democracy — only 43% of world (Freedom House)' : a.w_government_type === 'totalitarian' ? 'Totalitarian — most extreme repression' : 'Restricted government',
+      'Freedom House Freedom in the World 2024: 43% of the world lives in Free countries; 19% Partly Free; 38% Not Free. Totalitarian states (North Korea, Turkmenistan, Eritrea) control every aspect of citizens\' lives — information, movement, speech, religion, and reproduction. Democracy correlates with higher income, longer life, and greater personal autonomy.');
 
-    const persS = { never: 8, minor: 5, significant: 2, severe: 0 };
-    f('Freedom from persecution', persS[a.w_persecution] || 4, 8, a.w_persecution === 'never' ? 'Never persecuted — a privilege' : 'Persecution affects hundreds of millions', 'Religious, ethnic, and political persecution affects an estimated 1 billion people globally (USCIRF, 2023).');
+    // PERSECUTION
+    const persS = { never: 10, minor: 7, significant: 3, severe: 0 };
+    f('Freedom from persecution', persS[a.w_persecution] || 5, 10, 2,
+      a.w_persecution === 'never' ? 'Never persecuted — foundational privilege' : 'Persecution has affected your life',
+      'USCIRF 2023: religious persecution alone affects ~1 billion people globally. Ethnic persecution drives most of the world\'s refugee crises. Political persecution — imprisonment for speech or political affiliation — is routine in 70+ countries. Freedom from persecution is a prerequisite for almost every other form of flourishing.');
 
-    const incGS = { under2k: 0, '2_10k': 5, '10_30k': 12, '30_70k': 20, '70_200k': 28, over200k: 35 };
-    const incGO = { under2k: 'Extreme poverty — $5.50/day', '2_10k': 'Global lower class', '10_30k': 'Global middle class', '30_70k': 'Global upper middle — top 15%', '70_200k': 'Top 4% globally', over200k: 'Top 0.5% globally' };
-    f('Global income', incGS[a.w_income_global] || 8, 35, incGO[a.w_income_global] || '', 'Global median income: ~$9,733/year PPP. Earning $32k/year puts you in the top 1% globally. (World Bank, 2023)');
+    // GLOBAL INCOME
+    const incGS = { under2k: 0, '2_10k': 2.5, '10_30k': 5.5, '30_70k': 7.5, '70_200k': 9, over200k: 10 };
+    const incGO = { under2k: 'Extreme poverty — under $5.50/day', '2_10k': 'Global lower class — ~3B people here', '10_30k': 'Global middle class — top 25%', '30_70k': 'Global upper middle — top 15%', '70_200k': 'Global wealthy — top 4%', over200k: 'Global elite — top 0.5%' };
+    f('Global income (PPP)', incGS[a.w_income_global] || 4, 10, 1, incGO[a.w_income_global] || '',
+      'World Bank 2023: global median income ~$9,733/year PPP. $32,400/year = global top 1%. 700 million people live on less than $2.15/day (extreme poverty line). $70,000/year in the US = more than 96% of all humans alive. Income is the master key to access — to food, medicine, education, safety, and opportunity.');
 
-    const sanS = { full: 8, partial: 5, outdoor: 2, none: 0 };
-    f('Sanitation', sanS[a.w_sanitation] || 4, 8, a.w_sanitation === 'full' ? '~54% of world has basic sanitation' : '3.6B lack safely managed sanitation', 'Poor sanitation kills ~1.4 million people per year — mostly children under 5. (WHO/UNICEF 2023)');
+    // SANITATION
+    const sanS = { full: 10, partial: 6, outdoor: 2.5, none: 0 };
+    f('Sanitation access', sanS[a.w_sanitation] || 5, 10, 2,
+      a.w_sanitation === 'full' ? 'Indoor plumbing — ~54% of world has this' : '3.6B lack safely managed sanitation (WHO)',
+      'WHO/UNICEF 2023: 3.6 billion people lack safely managed sanitation. Poor sanitation causes diarrheal diseases that kill 1.6 million people/year — mostly children under 5. Open defecation is practiced by 670 million people globally, contaminating water sources and causing disease cycles that stunt cognitive and physical development.');
 
-    const hcGS = { excellent: 10, good: 7, limited: 4, poor: 1, none: 0 };
-    f('Global healthcare', hcGS[a.w_healthcare_global] || 4, 10, a.w_healthcare_global === 'excellent' ? 'World-class care — top 15% globally' : 'Half the world lacks basic health services', 'WHO: at least half the world\'s population cannot access essential health services. 800M spend >10% of household income on healthcare.');
+    // GLOBAL HEALTHCARE
+    const hcGS = { excellent: 10, good: 7.5, limited: 4, poor: 1.5, none: 0 };
+    f('Healthcare access (global)', hcGS[a.w_healthcare_global] || 4, 10, 2,
+      a.w_healthcare_global === 'excellent' ? 'World-class care — top 15% globally' : a.w_healthcare_global === 'none' ? 'No access — affects hundreds of millions' : 'Partial access',
+      'WHO 2023: at least half the world\'s population cannot access essential health services. 800 million spend more than 10% of household income on health care. In Chad, there is 1 doctor per 50,000 people vs. 26 per 10,000 in the US. Access to quality healthcare is the most unequally distributed resource on earth.');
 
-    const langS = { native: 8, fluent: 7, some: 3, none: 0 };
-    f('English fluency', langS[a.w_language] || 3, 8, a.w_language === 'native' ? 'Native English — enormous global advantage' : 'English is the language of global business, tech, and diplomacy', '1.5 billion people speak English. It is the primary language of the internet, global commerce, and most high-paying international careers.');
+    // ENGLISH FLUENCY
+    const langS = { native: 10, fluent: 8, some: 4, none: 1 };
+    f('English fluency', langS[a.w_language] || 3, 10, 3,
+      a.w_language === 'native' ? 'Native English — global language of business and tech' : a.w_language === 'none' ? 'No English — significant global barrier' : 'Bilingual advantage',
+      'English is the primary language of: international business, the internet (60% of websites), scientific publishing (80%+ of papers), aviation, diplomacy, and most high-paying global careers. 1.5 billion people speak it; native speakers have an enormous built-in advantage in global commerce and communication.');
 
-    const migS = { no: 5, economic: 6, forced: 0, generational: 3 };
-    f('Migration / displacement', migS[a.w_migration] || 4, 6, a.w_migration === 'no' ? 'Never displaced' : a.w_migration === 'economic' ? 'Chose to migrate — a freedom' : 'Displaced by force — profound hardship', '117 million people are forcibly displaced worldwide (UNHCR 2024) — the highest number ever recorded.');
-
-    const clS = { no: 8, minor: 6, significant: 3, severe: 0 };
-    f('Climate security', clS[a.w_climate_threat] || 5, 8, a.w_climate_threat === 'no' ? 'Not threatened — geographic luck' : 'Climate threatens 3.3–3.6B people', '3.3 to 3.6 billion people live in areas highly vulnerable to climate change (IPCC 2022). Many face permanent displacement.');
-
-    const wlS = { excellent: 6, good: 5, ok: 3, poor: 1 };
-    f('Work-life balance', wlS[a.work_life] || 3, 6, 'Varies widely by country', 'Scandinavia averages 27–31 hour work weeks. US averages 47. Many countries have no labor protections at all.');
+    // CLIMATE SECURITY
+    const clS = { no: 10, minor: 7, significant: 3.5, severe: 0 };
+    f('Climate security', clS[a.w_climate_threat] || 6, 10, 3,
+      a.w_climate_threat === 'no' ? 'Not threatened — geographic and economic insulation' : 'Climate actively threatens your life/livelihood',
+      'IPCC 2022: 3.3–3.6 billion people live in areas highly vulnerable to climate change. Bangladesh, Maldives, and Pacific islands face permanent inundation. The Sahel faces permanent desertification. Sub-Saharan Africa faces crop failure from drought. Climate threat is concentrated in the world\'s poorest regions — those who contributed least to the problem face the worst consequences.');
 
   } else { // HISTORY
-    const hcountryS = { usa: 20, w_europe_uk: 17, scandinavia: 18, japan_korea: 16, other_developed: 14, developing: 8, conflict_region: 3, extreme_poverty: 1 };
-    f('Living in developed nation (today)', hcountryS[a.h_born_country] || 8, 20, 'Born in a wealthy, peaceful democracy in the 21st century', 'For 99%+ of human history, no such place existed. Living in a stable democracy with modern infrastructure would be unimaginable to virtually all humans who ever lived.');
+    // BORN IN DEVELOPED NATION TODAY
+    const hcountryS = { usa: 10, w_europe_uk: 9, scandinavia: 9.5, japan_korea: 8.5, other_developed: 8, developing: 5, conflict_region: 2, extreme_poverty: 0.5 };
+    f('Born in developed nation today', hcountryS[a.h_born_country] || 5, 10, 1,
+      'Living in stable democracy with modern infrastructure — historically unprecedented',
+      'For 99.9% of human history, no wealthy, stable, democratic nation with modern medicine existed anywhere. The combination of political freedom, economic opportunity, physical safety, and access to modern technology available in developed democracies today would be unimaginable to virtually all 108 billion humans who came before. You are the lucky recipients of 10,000 years of accumulated human progress.');
 
-    const litS = { highly: 10, functional: 7, limited: 3, illiterate: 0 };
-    f('Literacy', litS[a.h_literacy] || 5, 10, a.h_literacy === 'highly' ? 'Highly literate — rare privilege historically' : '50% of all humans ever died illiterate', 'Global literacy only surpassed 50% around 1970. Before the printing press (1440), literacy was confined to clergy and aristocracy. You can read — most humans who ever lived could not.');
+    // LITERACY
+    const litS = { highly: 10, functional: 7.5, limited: 3, illiterate: 0 };
+    f('Literacy', litS[a.h_literacy] || 5, 10, 1,
+      a.h_literacy === 'highly' ? 'Highly literate — top 5% of all humans ever' : '50% of all humans ever born died illiterate',
+      'Global literacy only surpassed 50% around 1970. In 1820, only 12% of the world could read. Before Gutenberg\'s printing press (1440), books were hand-copied — a single Bible took a monk a year to produce. Literacy below 10% globally was the norm for 99% of human history. The ability to read is the master key to all other knowledge.');
 
-    const warHS = { never: 10, distant: 7, nearby: 4, direct: 1, veteran: 3 };
-    f('Personal war experience', warHS[a.h_war_personal] || 5, 10, a.h_war_personal === 'never' ? 'Living in peace — almost unprecedented in history' : 'War has touched your life', 'In the 20th century alone, wars killed 100–200 million people. Before modern states, inter-tribal and inter-kingdom warfare was a near-constant feature of human life.');
+    // WAR PERSONAL
+    const warHS = { never: 10, distant: 7, nearby: 4, direct: 1.5, veteran: 4 };
+    f('Personal war experience', warHS[a.h_war_personal] || 5, 10, 1,
+      a.h_war_personal === 'never' ? 'Never in combat zone — historically exceptional' : 'War has touched your life directly',
+      '20th century alone: WWI 20M dead, WWII 70–85M, Korean War 5M, Vietnam 3.5M, Rwandan genocide 800K in 100 days. Before modern nation-states, inter-tribal, inter-kingdom, and religious warfare was near-constant. The post-1945 Pax Americana is the longest period without great-power war in recorded Western history — an extraordinary anomaly.');
 
-    const warLostS = { no: 8, distant: 6, close: 3, immediate: 0 };
-    f('Losses to war', warLostS[a.h_lost_to_war] || 5, 8, a.h_lost_to_war === 'no' ? 'Lost no one to war — rare across history' : 'War has cost you personally', 'WWI killed 20M. WWII 70–85M. Mongol conquests: 40M. Napoleon\'s wars: 5M. Throughout history, losing family to organized violence was universal.');
+    // WAR FAMILY LOSSES
+    const warLostS = { no: 10, distant: 7.5, close: 4, immediate: 0 };
+    f('Family losses to war', warLostS[a.h_lost_to_war] || 6, 10, 2,
+      a.h_lost_to_war === 'no' ? 'No family losses — increasingly rare historically' : 'War has cost your family directly',
+      'WWI killed 20 million — ~1% of the global population. WWII killed 70–85 million — 3% of the world. The Mongol conquests (1206–1368) killed ~40 million — 10% of the world\'s population at the time. Throughout history, virtually every family eventually lost members to organized violence. You living without that loss is a product of timing and geography.');
 
-    const plagueS = { unaffected: 8, sick: 6, hospitalized: 4, family_loss: 2, severe: 1 };
-    f('Pandemic impact (vs. history)', plagueS[a.h_plague_pandemic] || 5, 8, 'Black Death killed 30–60% of Europe', 'COVID\'s ~1% mortality rate is mild compared to history. The Black Death (1347–1351) killed 75–200 million. Spanish flu (1918): 50–100M. You had vaccines within a year of a novel pathogen emerging.');
+    // PANDEMIC
+    const plagueS = { unaffected: 10, sick: 8, hospitalized: 6, family_loss: 3, severe: 1 };
+    f('Pandemic survival (vs. history)', plagueS[a.h_plague_pandemic] || 6, 10, 2,
+      'COVID ~1% mortality vs. Black Death 30–60% of Europe',
+      'Black Death (1347–1351): killed 75–200M people, 30–60% of Europe. Spanish flu (1918): 50–100M dead. COVID-19 killed ~7M reported but had vaccines within 1 year of emergence. You had access to those vaccines. Every human who lived through the Black Death watched family and neighbors die horribly with no treatment, no understanding of the cause, and no hope of a vaccine.');
 
-    const slavS = { no: 8, possible: 6, yes_distant: 4, yes_recent: 2 };
-    f('Slavery in ancestry', slavS[a.h_slavery_ancestry] || 5, 8, 'Over 10% of all humans ever lived were enslaved', 'Slavery existed in virtually every civilization throughout history. The Roman Empire was ~30–40% enslaved. The Atlantic slave trade: 12.5M people. You are free. This was not guaranteed.');
+    // SLAVERY
+    const slavS = { no: 10, possible: 7, yes_distant: 5, yes_recent: 2 };
+    f('Slavery in ancestry', slavS[a.h_slavery_ancestry] || 6, 10, 1,
+      'Over 10% of all humans ever lived were enslaved',
+      'Slavery existed in virtually every civilization in human history. Ancient Rome: 30–40% enslaved. Atlantic slave trade: 12.5M Africans transported, millions died. Soviet Gulag: 18M passed through. Nazi forced labor: 15M. You were born free. You can go where you want, work for whom you want, keep your earnings, and choose your own life. For 10%+ of all humans ever, this was not true.');
 
-    const famS = { never: 8, minor: 6, significant: 3, severe: 0 };
-    f('Famine experience', famS[a.h_famine_experience] || 5, 8, a.h_famine_experience === 'never' ? 'Never famine-affected — historically miraculous' : 'Famine has touched your life', 'Between 1870–1970, famines killed 50–100 million people. For most of human history, crop failure meant mass death. The Green Revolution (1960s) ended most famine in the modern era.');
+    // FAMINE
+    const famS = { never: 10, minor: 7, significant: 3.5, severe: 0 };
+    f('Famine experience', famS[a.h_famine_experience] || 6, 10, 1,
+      a.h_famine_experience === 'never' ? 'Never famine-affected — historically miraculous' : 'Famine has directly affected your life',
+      'Between 1850–1950 alone, famines killed an estimated 50–60 million people. The Great Chinese Famine (1959–61): 15–55 million dead. Soviet famine (1932–33): 5–7 million. Bengal famine (1943): 2–3 million. The Green Revolution of the 1960s — Norman Borlaug\'s high-yield wheat — is estimated to have saved 1 billion lives. You benefit from it every day.');
 
-    const eraS = { all: 10, most: 7, some: 5, few: 3 };
-    f('Tech era at birth', eraS[a.h_era_birth] || 5, 10, 'What existed at your birth vs. all of history', 'Electricity: 1880s. Penicillin: 1928. TV: 1920s. Internet: 1990s. Smartphones: 2007. All 108B humans before you lived and died without most of these. You arrived after all of it.');
+    // TECH ERA
+    const eraS = { all: 10, most: 7.5, some: 5.5, few: 3 };
+    f('Technology era at birth', eraS[a.h_era_birth] || 6, 10, 2,
+      'Born after internet, smartphones, GPS, streaming',
+      'Electricity: widespread 1880s–1920s. Penicillin: available 1944. Television: mass market 1950s. Commercial aviation: 1958. Internet: mass adoption mid-1990s. Smartphones: 2007. GPS navigation: free civilian use 2000. Streaming video: 2007. Every single one of 108 billion prior humans lived and died without most of these. You arrived after all of them were invented.');
 
-    const plumbS = { yes_always: 8, not_always: 4, no: 0 };
-    f('Indoor plumbing', plumbS[a.h_indoor_plumbing] || 5, 8, 'Always had it — top 5% of all humans ever', 'Indoor toilets and hot running water were not universal in the US until the 1960s. For 99.9% of human history, no human had them. Romans had public baths — private hot running water is ~100 years old.');
+    // INDOOR PLUMBING
+    const plumbS = { yes_always: 10, not_always: 6, no: 0 };
+    f('Indoor plumbing', plumbS[a.h_indoor_plumbing] || 6, 10, 2,
+      'Always had it — top 5% of all humans ever born',
+      'Flush toilets and indoor hot running water were not universal in US homes until the 1950s–60s. For 99.9% of human history — 200,000 years — no human had hot running water. The Roman aqueduct system served ~1M people; when Rome fell, indoor plumbing largely disappeared for 1,000 years in Europe. You turn on a tap. Every monarch, emperor, and conqueror before 1850 could not do that.');
 
-    const childMortS = { yes: 8, only_child: 6, one_lost: 4, multiple_lost: 0 };
-    f('Sibling survival', childMortS[a.h_child_mortality] || 5, 8, a.h_child_mortality === 'yes' ? 'All siblings survived — historically uncommon' : 'Loss occurred', 'As recently as 1900: 20% of US children died before age 5. In medieval Europe: 50%. Ancient Rome: 30–50%. The modern world has almost eliminated child mortality in wealthy nations.');
+    // CHILD MORTALITY
+    const childMortS = { yes: 10, only_child: 8, one_lost: 5, multiple_lost: 1 };
+    f('Sibling survival to adulthood', childMortS[a.h_child_mortality] || 6, 10, 2,
+      a.h_child_mortality === 'yes' ? 'All siblings survived — historically uncommon' : 'Child mortality has touched your family',
+      'Global child mortality (under-5) in 1900: ~20% in US, ~40–50% in developing regions, ~50% in medieval Europe, ~30–50% in ancient Rome. Today\'s global rate: ~3.9% (World Bank 2022). US rate: ~0.6%. The elimination of child mortality in wealthy nations in the 20th century is arguably the single greatest reduction in human suffering ever achieved.');
 
-    const accessMedS = { yes_lifesaving: 10, yes_major: 9, yes_minor: 7, not_yet: 8 };
-    f('Modern medicine received', accessMedS[a.h_access_medicine] || 7, 10, 'Modern medicine — available for only ~100 years', 'Before 1900: no antibiotics, no vaccines (except smallpox), no blood types, no X-rays, no anesthesia for surgery. If you\'ve received any modern medical care, you\'ve benefited from the greatest revolution in human welfare ever achieved.');
+    // MEDICINE RECEIVED
+    const accessMedS = { yes_lifesaving: 10, yes_major: 9, yes_minor: 8, not_yet: 8 };
+    f('Modern medicine received', accessMedS[a.h_access_medicine] || 7, 10, 2,
+      'Modern medicine — almost entirely a 20th century achievement',
+      'Before 1900: no antibiotics, no germ theory (accepted 1861), no blood typing, no X-rays, no vaccines beyond smallpox, no anesthesia beyond alcohol. Surgery killed more patients than it saved until Lister\'s antiseptic methods (1867). If you have ever received an antibiotic, vaccine, MRI, surgery, or cancer treatment, you have benefited from the greatest revolution in human welfare in history — all developed in the last 150 years.');
 
-    const genoS = { no: 8, distant: 6, recent: 3, survivor: 1 };
-    f('Genocide in ancestry', genoS[a.h_genocide_ancestry] || 5, 8, 'Genocide has touched ~1B+ people across history', 'Holocaust: 6M Jews. Armenian genocide: 1.5M. Rwandan genocide: 800K in 100 days. Cambodian: 2M. Holodomor: 3.5–7.5M. Conquests of the Americas: 50M. History is soaked in targeted mass murder.');
+    // GENOCIDE
+    const genoS = { no: 10, distant: 7.5, recent: 4, survivor: 1.5 };
+    f('Genocide in ancestry', genoS[a.h_genocide_ancestry] || 6, 10, 2,
+      'Genocide has directly affected ~1B+ people across history',
+      'Major 20th century genocides alone: Holocaust (6M), Armenian (1.5M), Rwandan (800K in 100 days), Cambodian Killing Fields (2M), Holodomor/Ukrainian (3.5–7.5M), Nanjing massacre (300K), Darfur (300K+). Earlier: conquests of the Americas (~50M), Mongol conquests (~40M), Transatlantic slave trade (~2M died in transit). History\'s body count from targeted mass murder is staggering.');
 
-    const propS = { yes_always: 8, limited: 4, no: 0 };
-    f('Property rights', propS[a.h_property_rights] || 5, 8, 'Always had property rights — top 10% of all humans', 'Women in the US could not own property independently until ~1900. Serfs and peasants — the majority of humans throughout history — owned nothing. You can own things legally. This is radical.');
+    // PROPERTY RIGHTS
+    const propS = { yes_always: 10, limited: 5, no: 0 };
+    f('Property rights', propS[a.h_property_rights] || 6, 10, 2,
+      'Always had property rights — top 10% of all humans ever',
+      'For 90%+ of human history, the majority of humans were serfs, peasants, or slaves who owned nothing — not their land, tools, homes, or labor. Women in the US could not own property independently until ~1900 in most states. The right to own property, keep your earnings, and accumulate wealth is a foundational freedom that most humans who ever lived never had.');
 
-    const voteS = { yes_use: 8, yes_dont: 6, limited: 2, no: 0 };
-    f('Right to vote', voteS[a.h_vote] || 4, 8, a.h_vote === 'yes_use' ? 'Voting and using it — top 5% of all humans ever' : 'Right to vote but not using it', 'Athenian democracy covered ~10–20% of adult men in 500 BCE. Universal suffrage only emerged in the 20th century. Most humans who ever lived had zero say in their government.');
+    // RIGHT TO VOTE
+    const voteS = { yes_use: 10, yes_dont: 7, limited: 3, no: 0 };
+    f('Right to vote', voteS[a.h_vote] || 5, 10, 2,
+      a.h_vote === 'yes_use' ? 'Vote and use it — top 5% of all humans ever' : a.h_vote === 'yes_dont' ? 'Have the right but do not use it — reflect on that' : 'Restricted or no voting rights',
+      'Universal adult suffrage only emerged in the 20th century. Women in Switzerland couldn\'t vote until 1971. US women: 1920. Most of the world\'s population still cannot vote in free and fair elections. In all of human history before 1776, the concept of citizens choosing their own government was considered radical and dangerous. You have a say in your government. 95%+ of all humans ever born did not.');
 
-    const perspS = { absolutely: 6, mostly: 5, mixed: 3, no: 1 };
-    f('Gratitude perspective', perspS[a.h_perspective] || 3, 6, 'Perspective is itself a form of luck', 'Harvard\'s 84-year study: people who feel grateful and connected live longer, healthier, happier lives. Recognizing your fortune compounds it.');
+    // PERSPECTIVE
+    const perspS = { absolutely: 10, mostly: 7.5, mixed: 5, no: 2.5 };
+    f('Gratitude & perspective', perspS[a.h_perspective] || 5, 10, 4,
+      'Perspective is itself a compounding asset',
+      'Harvard Study of Adult Development (84 years, ongoing): gratitude and a positive outlook are among the strongest predictors of late-life health, happiness, and longevity — independent of wealth, IQ, or education. Recognizing your fortune is not just feel-good philosophy — it is associated with lower cortisol, better immune function, stronger relationships, and measurably longer life.');
 
-    const wlS = { excellent: 6, good: 5, ok: 3, poor: 1 };
-    f('Work-life balance', wlS[a.work_life] || 3, 6, 'Having free time is historically radical', 'The 40-hour work week was only established in 1938. Before industrialization, laborers worked 60–80 hours per week, year-round, with no vacation, no retirement, and no sick days.');
+    // WORK-LIFE
+    const wlHS = { excellent: 10, good: 7, ok: 4, poor: 1 };
+    f('Work-life balance', wlHS[a.work_life] || 4, 10, 4,
+      'Having discretionary time is historically radical',
+      '8-hour workday concept: Robert Owen, 1817. 40-hour week mandated in US: 1938. Paid vacation: became common in US 1940s–50s. Retirement as a life stage: invented by Bismarck in Germany in 1889 (at age 70, when most people died by 50). Before industrialization, agricultural workers worked from sunrise to sunset, 6+ days/week, with no concept of leisure time or retirement. Your free time is a 20th century invention.');
   }
 
   const total = factors.reduce((s, x) => s + x.s, 0);
@@ -892,7 +1123,7 @@ function fmtPct(p) {
 }
 
 function calcOneInN(rawPct, m) {
-  // Different scale per mode — history gives the most dramatic numbers
+  // Different scale per mode - history gives the most dramatic numbers
   const scales = {
     us: { min: Math.log10(10), max: Math.log10(335000000) },
     world: { min: Math.log10(100), max: Math.log10(8100000000) },
@@ -907,6 +1138,162 @@ function calcPercentile(oneInN, m) {
   const pops = { us: 335000000, world: 8100000000, history: 108000000000 };
   const pop = pops[m];
   return Math.min(99.999999, ((pop - oneInN) / pop) * 100);
+}
+
+function buildPortrait(m, a, factors) {
+  // Build a detailed "who you are" description from answers
+  const yr = a.year || 1990;
+  const g = a.gender || 'nonbinary';
+  const gWord = g === 'male' ? 'man' : g === 'female' ? 'woman' : 'person';
+  const age = 2025 - yr;
+
+  // Tier scores
+  const byTier = [1,2,3,4].map(t => {
+    const tf = factors.filter(f => f.tier === t);
+    const ts = tf.reduce((s,f)=>s+f.s,0);
+    const tm = tf.reduce((s,f)=>s+f.max,0);
+    return { tier: t, pct: tm > 0 ? Math.round((ts/tm)*100) : 50, count: tf.length };
+  });
+
+  const tierLabels = ['Foundational', 'Major Life Shapers', 'Secondary Factors', 'Minor Traits'];
+  const tierColors = ['tc-fill-1','tc-fill-2','tc-fill-3','tc-fill-4'];
+
+  // Build personalized paragraphs
+  const paras = [];
+
+  // PARAGRAPH 1: Who they are
+  let p1 = `Based on your answers, you are a <strong>${age}-year-old ${gWord}</strong>`;
+  if (m === 'us' && a.us_state) p1 += ` living in <strong>${a.us_state}</strong>`;
+  else if (m === 'world' && a.w_country_tier) {
+    const ctryNames = {usa:'the United States',can_aus_nz:'Canada, Australia, or New Zealand',scandinavia:'Scandinavia',uk:'the United Kingdom',w_europe:'Western Europe',japan_korea:'Japan or South Korea',e_europe:'Eastern Europe',china:'China',latin_am:'Latin America',middle_east:'the Middle East',n_africa:'North Africa',india:'India',se_asia:'Southeast Asia',sub_saharan:'Sub-Saharan Africa',other_w:'your country'};
+    p1 += ` in <strong>${ctryNames[a.w_country_tier]||'your country'}</strong>`;
+  } else p1 += ` navigating life in ${yr >= 2000 ? 'the 21st century' : 'the modern era'}`;
+
+  // Add education
+  const eduWords = {no_hs:'without a high school diploma',hs:'with a high school diploma',some_college:'with some college education',associates:"with an Associate's degree",bachelors:"with a Bachelor's degree",masters:"with a Master's degree",professional:'with a professional degree (MD, JD, or MBA)',phd:'holding a PhD'};
+  if (a.education) p1 += `, <strong>${eduWords[a.education]||''}</strong>`;
+
+  // Add career
+  const jobWords = {entry:'early in your career',mid:'at a mid-level career stage',senior:'in a senior professional role',manager:'in a management or director role',executive:'at the executive level',owner:'running your own business',unemployed:'currently between jobs',na:'outside the traditional workforce'};
+  if (a.job_level) p1 += `, ${jobWords[a.job_level]||''}`;
+
+  p1 += '.';
+  paras.push(p1);
+
+  // PARAGRAPH 2: Economic picture
+  let p2 = '';
+  const incWords = {'0':'no personal income','1_15k':'under $15,000 per year','15_30k':'$15,000–$30,000 per year','30_50k':'$30,000–$50,000 per year','50_75k':'$50,000–$75,000 per year','75_100k':'$75,000–$100,000 per year','100_200k':'$100,000–$200,000 per year','200_500k':'$200,000–$500,000 per year','500k_plus':'over $500,000 per year'};
+  const nwWords = {negative:'a negative net worth (carrying more debt than assets)','0_10k':'minimal savings or net worth','10_100k':'a modest net worth','100_500k':'a solid net worth between $100k–$500k','500k_1m':'substantial wealth approaching $1 million','1m_5m':'a net worth between $1M–$5M','5m_plus':'a net worth exceeding $5 million'};
+  if (a.income && a.net_worth) {
+    p2 = `Economically, you earn <strong class="highlight">${incWords[a.income]||'an income'}</strong> and have <strong>${nwWords[a.net_worth]||'some net worth'}</strong>.`;
+    const shWords = {own_paid:'own your home outright',own_mortgage:'are building equity through a mortgage',rent_stable:'rent in a stable situation',rent_precarious:'face housing instability',family:'live with family',homeless:'are experiencing housing instability'};
+    if (a.shelter) p2 += ` You ${shWords[a.shelter]||''}.`;
+    // Add global context
+    if (a.income === '100_200k' || a.income === '200_500k' || a.income === '500k_plus') p2 += ` <span class="highlight">By global standards, you are wealthy — earning more than 95%+ of all humans alive.</span>`;
+    else if (a.income === '50_75k' || a.income === '75_100k') p2 += ` By global standards, your income places you in approximately the top 2–5% of all humans alive.`;
+    else if (a.income === '30_50k') p2 += ` By global standards, this places you in roughly the top 10–15% of all humans alive.`;
+  }
+  if (p2) paras.push(p2);
+
+  // PARAGRAPH 3: Health picture
+  let p3 = '';
+  const hlWords = {excellent:'excellent physical health',good:'good physical health',fair:'fair health with some challenges',poor:'significant health challenges'};
+  const mhWords = {thriving:'genuinely thriving mentally',good:'in good psychological health',struggling:'managing mental health challenges',crisis:'facing a mental health crisis'};
+  if (a.health && a.mental_health) {
+    p3 = `Physically you are in <strong>${hlWords[a.health]||'your current state of health'}</strong>, and mentally you are <strong>${mhWords[a.mental_health]||''}</strong>.`;
+    const disWords = {none:'no significant disability',minor:'a minor but manageable condition',moderate:'a moderate condition that affects daily life',severe:'a significant disability that shapes your daily experience'};
+    if (a.disability) p3 += ` You have ${disWords[a.disability]||''}.`;
+    const slpWords = {great:'sleeping well',ok:'sleeping adequately',poor:'struggling with sleep',very_poor:'dealing with chronic sleep problems'};
+    if (a.sleep) p3 += ` You are ${slpWords[a.sleep]||''}.`;
+  }
+  if (p3) paras.push(p3);
+
+  // PARAGRAPH 4: Relationships & social
+  let p4 = '';
+  const relWords = {married_happy:'happily married or partnered',married_ok:'in a complicated partnership',dating:'actively dating',single_ok:'contentedly single',single_lonely:'single and feeling lonely',divorced:'navigating life post-divorce',widowed:'widowed'};
+  if (a.relationship && a.close_friends) {
+    p4 = `Socially, you are <strong>${relWords[a.relationship]||''}</strong>`;
+    const cfWords = {'0':'no close friends — a genuine hardship','1_2':'1–2 close friends — a small but meaningful circle','3_5':'3–5 close friends — the typical American range','6_10':'6–10 close friends — an above-average social circle','10plus':'more than 10 close friends — exceptional social wealth'};
+    p4 += ` with <strong>${cfWords[a.close_friends]||''}</strong>.`;
+    if (a.parents_together) {
+      const parWords = {yes:'grew up in an intact two-parent household',divorced_ok:"parents divorced but co-parented well",divorced_hard:'experienced a high-conflict divorce in childhood',single:'raised by a single parent',other:'raised by extended family or guardians'};
+      p4 += ` You ${parWords[a.parents_together]||''}.`;
+    }
+    if (a.mentor) {
+      const menWords = {multiple:'had multiple influential mentors',one:'had one key mentor who opened doors',some:'had some mentorship along the way',none:'built your path largely without mentors'};
+      p4 += ` You have ${menWords[a.mentor]||''}.`;
+    }
+  }
+  if (p4) paras.push(p4);
+
+  // PARAGRAPH 5: Freedom, safety, access
+  let p5 = '';
+  const frWords = {fully:'full political and personal freedom',mostly:'mostly free with minor restrictions',limited:'significant restrictions on your freedom',none:'very limited freedom'};
+  const safWords = {fully:'feel fully physically safe',mostly:'feel mostly safe',sometimes:'sometimes feel unsafe',no:'regularly feel unsafe'};
+  if (a.political_freedom && a.safety) {
+    p5 = `You have <strong>${frWords[a.political_freedom]||''}</strong> and <strong>${safWords[a.safety]||''}</strong> in your daily life.`;
+    const cwWords = {yes:'clean tap water',filter:'filtered water',bottled:'bottled water',no:'unreliable water access'};
+    if (a.clean_water) p5 += ` You have access to <strong>${cwWords[a.clean_water]||'water'}</strong>.`;
+    const fdWords = {abundant:'your food situation is one of abundance',comfortable:'you eat comfortably and reliably',adequate:'your food access is adequate but constrained',limited:'you sometimes struggle with food access',scarce:'you face real food insecurity'};
+    if (a.food_security) p5 += ` And ${fdWords[a.food_security]||''}.`;
+  }
+  if (p5) paras.push(p5);
+
+  // PARAGRAPH 6: Mode-specific context
+  let p6 = '';
+  if (m === 'us') {
+    if (a.us_industry && a.us_college_type) {
+      const indWords = {tech:'technology/software',finance:'finance/banking',medicine:'healthcare/medicine',law:'law',engineering:'engineering',education:'education',government:'government/public service',real_estate:'real estate',creative:'creative/media',skilled_trade:'a skilled trade',service:'service industry',other_ind:'your field'};
+      const ctWords = {no_college:'without a college degree',community:'from community college',state:'from a public state university',top50:'from a top-50 university',ivy:'from an Ivy League or top-10 institution',trade:'from a trade/vocational program'};
+      p6 = `You work in <strong>${indWords[a.us_industry]||'your industry'}</strong>, having studied ${ctWords[a.us_college_type]||''}.`;
+      if (a.us_healthcare) {
+        const hcWords = {excellent:'excellent employer-sponsored health coverage',good:'good health insurance',high_deductible:'a high-deductible health plan',medicaid:'Medicaid coverage',none:'no health insurance'};
+        p6 += ` You have <strong>${hcWords[a.us_healthcare]||'healthcare coverage'}</strong>.`;
+      }
+      if (a.us_investments) {
+        const invWords = {active:'actively investing in stocks, real estate, or other assets',retirement:'investing primarily through retirement accounts',minimal:'minimal investment exposure',none:'no current investments'};
+        p6 += ` You are ${invWords[a.us_investments]||''}.`;
+      }
+    }
+  } else if (m === 'world') {
+    if (a.w_conflict_exposure && a.w_government_type) {
+      const confWords = {never:'never experienced war or conflict directly',briefly:'had brief indirect exposure to conflict',yes_civilian:'lived near active conflict as a civilian',yes_direct:'been directly in a conflict zone',refugee:'been forcibly displaced or became a refugee'};
+      const govWords = {full_democracy:'a full democracy',flawed_democracy:'a flawed democracy with some restrictions',hybrid:'a hybrid regime with significant authoritarian elements',authoritarian:'an authoritarian state',totalitarian:'a totalitarian regime'};
+      p6 = `You have <strong>${confWords[a.w_conflict_exposure]||''}</strong>, and you live under <strong>${govWords[a.w_government_type]||'your government'}</strong>.`;
+      if (a.w_language) {
+        const langWords = {native:'a native English speaker — a significant global advantage',fluent:'fluent in English as a second language',some:'some English ability',none:'no English ability'};
+        p6 += ` You are ${langWords[a.w_language]||''}.`;
+      }
+    }
+  } else {
+    if (a.h_war_personal && a.h_literacy) {
+      const hwWords = {never:'never personally experienced armed conflict',distant:'had war nearby but distant',nearby:'lived in a conflict region',direct:'been directly in a war zone',veteran:'served in combat'};
+      const litWords = {highly:'highly literate',functional:'functionally literate',limited:'partially literate',illiterate:'illiterate'};
+      p6 = `In the sweep of human history, you have <strong>${hwWords[a.h_war_personal]||''}</strong> and you are <strong>${litWords[a.h_literacy]||''}</strong>.`;
+      if (a.h_indoor_plumbing === 'yes_always') p6 += ` You have always had indoor plumbing — something no human had until ~1900 and most humans throughout history never experienced.`;
+      if (a.h_child_mortality === 'yes') p6 += ` All your siblings survived to adulthood — something parents in every prior century prayed for but rarely achieved.`;
+    }
+  }
+  if (p6) paras.push(p6);
+
+  // PARAGRAPH 7: The bottom line
+  const overall = factors.reduce((s,f)=>s+f.s,0) / factors.reduce((s,f)=>s+f.max,0);
+  let p7 = '';
+  if (overall >= 0.80) p7 = `<span class="highlight">The full picture: you represent a combination of circumstances, traits, and opportunities that would have been considered extraordinary fortune in virtually any era or place in human history.</span> Not because life has no challenges — it always does — but because the foundational conditions of your existence place you among the most fortunate people who have ever lived.`;
+  else if (overall >= 0.65) p7 = `<span class="highlight">The full picture: your life circumstances place you well above the global and historical average across most dimensions that matter.</span> There are real challenges in your story, but the baseline of safety, opportunity, and access you enjoy would be the envy of the vast majority of humans across time.`;
+  else if (overall >= 0.50) p7 = `<span class="highlight">The full picture: your life has genuine complexity — real advantages and real challenges in roughly equal measure.</span> But consider this: you are literate, alive, and healthy enough to take this quiz. In the context of all 108 billion humans ever born, that combination alone puts you ahead of more than half.`;
+  else p7 = `<span class="highlight">The full picture: your score reflects real hardships and structural challenges.</span> But the fact that you are here — alive, literate, and engaging with questions about your place in human history — means you have already demonstrated resilience that many people never get the chance to show.`;
+  paras.push(p7);
+
+  // Tier breakdown HTML
+  const tierHTML = byTier.map((t,i) => `
+    <div class="tier-card">
+      <div class="tc-label">Tier ${t.tier}: ${tierLabels[i]}</div>
+      <div class="tc-bar"><div class="tc-fill ${tierColors[i]}" style="width:${t.pct}%"></div></div>
+      <div class="tc-score">${t.pct}/100</div>
+    </div>`).join('');
+
+  return { paras, tierHTML };
 }
 
 function buildBlessing(m, a, rawPct) {
@@ -1010,13 +1397,13 @@ function buildResult(m) {
   else if (rawPct >= 0.35) { grade = 'D'; gradeLabel = 'Some Luck, Real Challenges'; gradeMsg = 'Your score reflects real hardships and challenges. But consider: you are alive, literate, and using a computer. Billions throughout history and today would consider even that to be extraordinary fortune.'; }
   else { grade = 'F'; gradeLabel = 'Significant Challenges'; gradeMsg = 'Your life has faced genuine hardship. The fact that you are here, engaging with this question, is itself a form of resilience that deserves recognition.'; }
 
-  // ── CONTEXT CARDS — punchy, specific, comparative per mode + answer ──
+  // -- CONTEXT CARDS - punchy, specific, comparative per mode + answer --
   const ctx = [];
   const yr = ans.year || 1990;
   const a2 = ans; // shorthand
 
   if (m === 'us') {
-    // US-specific cards — compare to other Americans and the world
+    // US-specific cards - compare to other Americans and the world
     ctx.push({ i: '🇺🇸', m: 'You were born in the most powerful country in human history.', d: 'The US has 4% of the world\'s population but generates 25% of global GDP. The average American lives on ~$76,000/year. The average person in sub-Saharan Africa lives on ~$1,600. You didn\'t choose to be born here — but it may be the single luckiest thing that ever happened to you.' });
     if (a2.us_state) {
       const stW = STATE_RANK[a2.us_state] || 0.5;
@@ -1034,7 +1421,7 @@ function buildResult(m) {
     ctx.push({ i: '🚿', m: 'You took a hot shower today. Kings couldn\'t do this 200 years ago.', d: 'Residential hot running water only became common in American homes in the 1920s–40s. Before that, bathing meant heating water over a fire and pouring it into a wooden tub — once a week if you were lucky. Louis XIV of France, the most powerful man alive in 1700, had no indoor plumbing. You have more daily comfort than royalty had for most of human history.' });
 
   } else if (m === 'world') {
-    // World-specific — compare to specific countries and conditions
+    // World-specific - compare to specific countries and conditions
     if (a2.w_country_tier === 'usa') {
       ctx.push({ i: '🇺🇸', m: 'Born American — the single luckiest geography on earth right now.', d: 'The US has 4% of the world but 25% of its wealth. An American born into the bottom 10% of US income still has a higher standard of living than the median person in China, Brazil, or Mexico. You won the geographic lottery before you drew a single breath.' });
     } else if (a2.w_country_tier === 'sub_saharan') {
@@ -1070,6 +1457,7 @@ function buildResult(m) {
     ctx.push({ i: '🎲', m: 'The odds of you specifically existing: 1 in 10 to the power of 2,685,000.', d: 'Every one of your ancestors — going back 150,000 generations — had to survive war, famine, plague, predators, and find exactly the right mate at exactly the right moment. One changed event anywhere in that chain and you do not exist. The number of atoms in the observable universe is 10⁸⁰. Your existence is more improbable than that by a factor that has no name.' });
   }
 
+  const portrait = buildPortrait(m, ans, factors);
   const blessing = buildBlessing(m, ans, rawPct);
   const topF = [...factors].sort((a, b) => b.s / b.max - a.s / a.max).slice(0, 6);
   const modeNames = { us: '🇺🇸 Within the US', world: '🌍 Within the World', history: '⏳ All of History' };
@@ -1135,6 +1523,17 @@ function buildResult(m) {
     <div class="other-modes">
       <div class="om-title">Estimated score in other modes (click to take):</div>
       <div class="om-btns">${otherScoresHTML}</div>
+    </div>
+
+    <div class="section-head">Your full picture</div>
+    <div class="portrait-block">
+      <div class="portrait-eyebrow">Based on your answers</div>
+      <div class="portrait-title">Who you are — described back to you</div>
+      ${portrait.paras.map(p => `<div class="portrait-para">${p}</div>`).join('')}
+      <div style="margin-top:1.25rem">
+        <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem">Score by tier</div>
+        <div class="tier-breakdown">${portrait.tierHTML}</div>
+      </div>
     </div>
 
     <div class="section-head">Why you are blessed</div>
